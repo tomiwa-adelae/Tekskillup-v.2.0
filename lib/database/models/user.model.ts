@@ -1,4 +1,17 @@
-import { Schema, model, models } from "mongoose";
+import { Document, Schema, model, models } from "mongoose";
+
+// Define the User interface
+interface IUser extends Document {
+	clerkId: string;
+	email: string;
+	firstName: string;
+	lastName: string;
+	phoneNumber: string;
+	picture: string;
+	isAdmin: boolean;
+	createdAt?: Date;
+	updatedAt?: Date;
+}
 
 const UserSchema = new Schema(
 	{

@@ -9,8 +9,18 @@ import FeaturedCourses from "./_components/FeaturedCourses";
 import Testimonials from "./_components/Testimonials";
 import SuccessStats from "@/components/SuccessStats";
 import FAQs from "@/components/FAQs";
+import { auth } from "@clerk/nextjs";
+import { getUserById } from "@/lib/actions/user.actions";
 
-export default function Home() {
+export default async function Home() {
+	const { userId } = auth();
+
+	// console.log("userId", userId);
+
+	const userInfo = await getUserById(userId!);
+
+	// console.log("userInfo", userInfo);
+
 	return (
 		<>
 			<Showcase />

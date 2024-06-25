@@ -1,45 +1,53 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Pen } from "lucide-react";
+import { Pen, X } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
-	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
 import { CreateCourseSchema } from "@/lib/validations";
+import { updateCourse } from "@/lib/actions/ourcourse.actions";
 
-const CourseName = () => {
+const CourseName = ({
+	initialValue,
+	courseId,
+	path,
+}: {
+	initialValue: string;
+	courseId: string;
+	path: string;
+}) => {
+	const [isEditing, setIsEditing] = useState(false);
+
 	const form = useForm<z.infer<typeof CreateCourseSchema>>({
 		resolver: zodResolver(CreateCourseSchema),
 		defaultValues: {
-			name: "",
+			name: initialValue || "",
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof CreateCourseSchema>) {
-		toast({
-			title: "You submitted the following values:",
-			description: (
-				<pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
+	async function onSubmit(data: z.infer<typeof CreateCourseSchema>) {
+		try {
+			await updateCourse({ courseId, data, path });
+
+			setIsEditing(!isEditing);
+		} catch (error) {
+			console.log(error);
+		}
 	}
+
 	return (
 		<div
 			className={
@@ -54,36 +62,58 @@ const CourseName = () => {
 						size={"sm"}
 						variant={"ghost"}
 						className=" font-bold text-xs uppercase"
+						onClick={() => setIsEditing(!isEditing)}
 					>
-						<Pen className="w-4 h-4 mr-2" />
-						Edit
+						{!isEditing && (
+							<>
+								<Pen className="w-4 h-4 mr-2" />
+								Edit
+							</>
+						)}
+						{isEditing && (
+							<>
+								<X className="w-4 h-4 mr-2" />
+								Close
+							</>
+						)}
 					</Button>
 				</div>
 				<div>
-					<p className="text-sm mt-4">MERN Stack Development</p>
-					{/* <Form {...form}>
-						<form
-							onSubmit={form.handleSubmit(onSubmit)}
-							className="space-y-3 mt-2"
-						>
-							<FormField
-								control={form.control}
-								name="name"
-								render={({ field }) => (
-									<FormItem>
-										<FormControl>
-											<Input
-												placeholder="Write the name of your course..."
-												{...field}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<Button type="submit">Update</Button>
-						</form>
-					</Form> */}
+					{!isEditing && (
+						<p className="text-sm mt-4">{initialValue}</p>
+					)}
+					{isEditing && (
+						<Form {...form}>
+							<form
+								onSubmit={form.handleSubmit(onSubmit)}
+								className="space-y-3 mt-2"
+							>
+								<FormField
+									control={form.control}
+									name="name"
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<Input
+													placeholder="Write the name of your course..."
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<Button
+									disabled={form.formState.isSubmitting}
+									type="submit"
+								>
+									{form.formState.isSubmitting
+										? "Updating..."
+										: "Update"}
+								</Button>
+							</form>
+						</Form>
+					)}
 				</div>
 			</div>
 		</div>

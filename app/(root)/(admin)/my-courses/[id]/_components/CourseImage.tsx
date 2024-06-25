@@ -1,35 +1,39 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ImageIcon, Pen } from "lucide-react";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { ImageIcon, Pen, X } from "lucide-react";
 
 import { toast } from "@/components/ui/use-toast";
-import { CourseImageSchema } from "@/lib/validations";
+import { useState } from "react";
 
-const CourseImage = () => {
-	const form = useForm<z.infer<typeof CourseImageSchema>>({
-		resolver: zodResolver(CourseImageSchema),
-		defaultValues: {
-			image: "",
-		},
-	});
+import { UploadDropzone } from "@/lib/uploadthing";
+import Image from "next/image";
+import { updateCourse } from "@/lib/actions/ourcourse.actions";
 
-	function onSubmit(data: z.infer<typeof CourseImageSchema>) {
-		toast({
-			title: "You submitted the following values:",
-			description: (
-				<pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
-	}
+const CourseImage = ({
+	initialValue,
+	courseId,
+	path,
+	name,
+}: {
+	initialValue: string;
+	courseId: string;
+	path: string;
+	name: string;
+}) => {
+	const [isEditing, setIsEditing] = useState(false);
+
+	const [imageData, setImageData] = useState("");
+
+	const handleSubmitImage = async (url: any) => {
+		console.log("files", url);
+		setImageData(url?.[0].url);
+		await updateCourse({ courseId, data: { picture: url?.[0].url }, path });
+
+		setIsEditing(!isEditing);
+		window.alert("Upload completed");
+	};
+
 	return (
 		<div
 			className={
@@ -39,21 +43,68 @@ const CourseImage = () => {
 			<div className="">
 				<div className="flex items-center justify-between gap-1">
 					<p className="text-xs font-bold uppercase">Course image</p>
-
 					<Button
 						size={"sm"}
 						variant={"ghost"}
 						className=" font-bold text-xs uppercase"
+						onClick={() => setIsEditing(!isEditing)}
 					>
-						<Pen className="w-4 h-4 mr-2" />
-						Edit
+						{!isEditing && (
+							<>
+								<Pen className="w-4 h-4 mr-2" />
+								Edit
+							</>
+						)}
+						{isEditing && (
+							<>
+								<X className="w-4 h-4 mr-2" />
+								Close
+							</>
+						)}
 					</Button>
 				</div>
 				<div>
-					<div className="flex items-center justify-center flex-col gap-4 h-60 rounded-lg">
-						<ImageIcon className="w-10 h-10" />
-						<p className="text-xs italic">No image</p>
-					</div>
+					{isEditing && (
+						<>
+							{imageData ? (
+								<div className="col-span-6 sm:col-span-4 shadow">
+									<Image
+										src={imageData}
+										alt="productImage"
+										width="1000"
+										height="100"
+										className="object-cover w-full h-[250px]"
+									/>
+								</div>
+							) : (
+								<UploadDropzone
+									endpoint={"productImage"}
+									onClientUploadComplete={(url: any) =>
+										handleSubmitImage(url)
+									}
+									onUploadError={(error) => {
+										window.alert(`${error?.message}`);
+									}}
+									className="mt-4 ut-button:bg-green-400 ut-button:ut-readying:bg-green-400/50 ut-label:text-green-400"
+								/>
+							)}
+						</>
+					)}
+					{!isEditing && !initialValue && (
+						<div className="flex items-center justify-center flex-col gap-4 h-60 rounded-lg mt-2">
+							<ImageIcon className="w-10 h-10" />
+							<p className="text-xs italic">No image</p>
+						</div>
+					)}
+					{!isEditing && initialValue && (
+						<Image
+							src={initialValue}
+							alt={name}
+							width={1000}
+							height={1000}
+							className="object-cover aspect-video rounded-lg mt-2"
+						/>
+					)}
 				</div>
 			</div>
 		</div>

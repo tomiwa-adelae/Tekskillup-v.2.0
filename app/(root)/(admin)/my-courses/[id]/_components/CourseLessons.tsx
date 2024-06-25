@@ -17,31 +17,38 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { CourseWeekendPriceSchema } from "@/lib/validations";
-import { updateCourse } from "@/lib/actions/ourcourse.actions";
-import { formatToNaira } from "@/lib/utils";
+import { CourseLessonSchema } from "@/lib/validations";
+import { updateCourseLessons } from "@/lib/actions/ourcourse.actions";
+import { DeleteCourseLessonDialog } from "./DeleteCourseLessonDialog";
+import { Separator } from "@/components/ui/separator";
 
-const CourseWeekendPrice = ({
-	initialValue,
+const CourseLessons = ({
+	initialLessons,
 	courseId,
 	path,
 }: {
-	initialValue: string;
+	initialLessons?: any;
 	courseId: string;
 	path: string;
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 
-	const form = useForm<z.infer<typeof CourseWeekendPriceSchema>>({
-		resolver: zodResolver(CourseWeekendPriceSchema),
+	console.log(initialLessons);
+
+	const form = useForm<z.infer<typeof CourseLessonSchema>>({
+		resolver: zodResolver(CourseLessonSchema),
 		defaultValues: {
-			weekendPrice: initialValue || "",
+			content: "",
 		},
 	});
 
-	async function onSubmit(data: z.infer<typeof CourseWeekendPriceSchema>) {
+	async function onSubmit(data: z.infer<typeof CourseLessonSchema>) {
 		try {
-			await updateCourse({ courseId, data, path });
+			await updateCourseLessons({
+				courseId,
+				content: data.content,
+				path,
+			});
 
 			setIsEditing(!isEditing);
 		} catch (error) {
@@ -57,7 +64,9 @@ const CourseWeekendPrice = ({
 		>
 			<div className="">
 				<div className="flex items-center justify-between gap-1">
-					<p className="text-xs font-bold uppercase">Weekend price</p>
+					<p className="text-xs font-bold uppercase">
+						Course lessons
+					</p>
 
 					<Button
 						size={"sm"}
@@ -80,13 +89,27 @@ const CourseWeekendPrice = ({
 					</Button>
 				</div>
 				<div>
-					{!isEditing && initialValue !== undefined && (
-						<p className="text-sm mt-4">
-							{formatToNaira(initialValue)}
-						</p>
-					)}
-					{!isEditing && !initialValue && (
-						<p className="text-sm mt-4 italic">No price set</p>
+					<div className="flex items-center justify-start gap-2 flex-col w-full mt-4">
+						{!isEditing &&
+							initialLessons.map(
+								(
+									lesson: { content: string },
+									index: number
+								) => (
+									<div className="w-full" key={index}>
+										<Separator />
+										<div className="py-2 px-4 flex items-center justify-between">
+											<p className="text-sm">
+												{lesson.content}
+											</p>
+											<DeleteCourseLessonDialog />
+										</div>
+									</div>
+								)
+							)}
+					</div>
+					{!isEditing && initialLessons?.length === 0 && (
+						<p className="text-sm mt-4 italic">No lessons yet</p>
 					)}
 					{isEditing && (
 						<Form {...form}>
@@ -96,13 +119,12 @@ const CourseWeekendPrice = ({
 							>
 								<FormField
 									control={form.control}
-									name="weekendPrice"
+									name="content"
 									render={({ field }) => (
 										<FormItem>
 											<FormControl>
 												<Input
-													type="number"
-													placeholder="Write the online price for your course..."
+													placeholder="Write the lesson of your course..."
 													{...field}
 												/>
 											</FormControl>
@@ -127,4 +149,4 @@ const CourseWeekendPrice = ({
 	);
 };
 
-export default CourseWeekendPrice;
+export default CourseLessons;

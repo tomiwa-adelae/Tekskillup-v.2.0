@@ -18,25 +18,33 @@ export const CourseDescriptionSchema = z.object({
 });
 
 export const CourseOnlinePriceSchema = z.object({
-	onlinePrice: z.number(),
+	onlinePrice: z.string(),
 });
 
 export const CourseWeekendPriceSchema = z.object({
-	weekendPrice: z.number(),
+	weekendPrice: z.string(),
 });
 
 export const CourseWeekdaysPriceSchema = z.object({
-	weekdaysPrice: z.number(),
+	weekdaysPrice: z.string(),
 });
 
 export const CourseWeekdaysDateSchema = z.object({
-	weekdaysDate: z.date(),
+	weekdaysDate: z.date().default(new Date()),
 });
 
 export const CourseWeekendDateSchema = z.object({
-	weekendDate: z.date(),
+	weekendDate: z.date().default(new Date()),
 });
 
 export const CourseImageSchema = z.object({
-	image: z.string(),
+	picture: z.string(),
+});
+
+export const CourseLessonSchema = z.object({
+	content: z.string(),
+});
+
+export const CourseCategorySchema = z.object({
+	category: z.string(),
 });

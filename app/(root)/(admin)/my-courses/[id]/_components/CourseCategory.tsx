@@ -16,12 +16,11 @@ import {
 	FormItem,
 	FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { CourseWeekendPriceSchema } from "@/lib/validations";
+import { CourseCategorySchema } from "@/lib/validations";
 import { updateCourse } from "@/lib/actions/ourcourse.actions";
-import { formatToNaira } from "@/lib/utils";
+import { CategorySelection } from "./CategorySelection";
 
-const CourseWeekendPrice = ({
+const CourseCategory = ({
 	initialValue,
 	courseId,
 	path,
@@ -32,18 +31,19 @@ const CourseWeekendPrice = ({
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 
-	const form = useForm<z.infer<typeof CourseWeekendPriceSchema>>({
-		resolver: zodResolver(CourseWeekendPriceSchema),
+	const form = useForm<z.infer<typeof CourseCategorySchema>>({
+		resolver: zodResolver(CourseCategorySchema),
 		defaultValues: {
-			weekendPrice: initialValue || "",
+			category: initialValue || "",
 		},
 	});
 
-	async function onSubmit(data: z.infer<typeof CourseWeekendPriceSchema>) {
+	async function onSubmit(data: z.infer<typeof CourseCategorySchema>) {
 		try {
-			await updateCourse({ courseId, data, path });
+			// await updateCourse({ courseId, data, path });
 
-			setIsEditing(!isEditing);
+			// setIsEditing(!isEditing);
+			console.log(data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -57,7 +57,9 @@ const CourseWeekendPrice = ({
 		>
 			<div className="">
 				<div className="flex items-center justify-between gap-1">
-					<p className="text-xs font-bold uppercase">Weekend price</p>
+					<p className="text-xs font-bold uppercase">
+						Course category
+					</p>
 
 					<Button
 						size={"sm"}
@@ -80,13 +82,11 @@ const CourseWeekendPrice = ({
 					</Button>
 				</div>
 				<div>
-					{!isEditing && initialValue !== undefined && (
-						<p className="text-sm mt-4">
-							{formatToNaira(initialValue)}
-						</p>
+					{!isEditing && (
+						<p className="text-sm mt-4">{initialValue}</p>
 					)}
 					{!isEditing && !initialValue && (
-						<p className="text-sm mt-4 italic">No price set</p>
+						<p className="text-sm mt-4 italic">No category</p>
 					)}
 					{isEditing && (
 						<Form {...form}>
@@ -96,14 +96,15 @@ const CourseWeekendPrice = ({
 							>
 								<FormField
 									control={form.control}
-									name="weekendPrice"
+									name="category"
 									render={({ field }) => (
 										<FormItem>
 											<FormControl>
-												<Input
-													type="number"
-													placeholder="Write the online price for your course..."
-													{...field}
+												<CategorySelection
+													value={initialValue}
+													onChangeHandler={
+														field.onChange
+													}
 												/>
 											</FormControl>
 											<FormMessage />
@@ -127,4 +128,4 @@ const CourseWeekendPrice = ({
 	);
 };
 
-export default CourseWeekendPrice;
+export default CourseCategory;

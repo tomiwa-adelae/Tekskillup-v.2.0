@@ -12,6 +12,8 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { navVariants } from "@/lib/motion";
 import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
+import { useEffect } from "react";
+import { getUserById } from "@/lib/actions/user.actions";
 
 const Header = () => {
 	const pathname = usePathname();
@@ -41,19 +43,15 @@ const Header = () => {
 						{headerLinks.map((link) => {
 							const isActive = pathname === link.route;
 							return (
-								<>
-									<li
-										className={`${
-											isActive &&
-											"text-primary font-extrabold"
-										} hover:underline hover:text-primary cursor-pointer`}
-										key={link.route}
-									>
-										<Link href={link.route}>
-											{link.label}
-										</Link>
-									</li>
-								</>
+								<li
+									className={`${
+										isActive &&
+										"text-primary font-extrabold"
+									} hover:underline hover:text-primary cursor-pointer`}
+									key={link.route}
+								>
+									<Link href={link.route}>{link.label}</Link>
+								</li>
 							);
 						})}
 					</ul>

@@ -1,45 +1,56 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Pen } from "lucide-react";
+import { Pen, X } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
-	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
 import { CourseOnlinePriceSchema } from "@/lib/validations";
+import { updateCourse } from "@/lib/actions/ourcourse.actions";
+import { formatToNaira } from "@/lib/utils";
 
-const CourseOnlinePrice = () => {
+const CourseOnlinePrice = ({
+	initialValue,
+	courseId,
+	path,
+}: {
+	initialValue: string;
+	courseId: string;
+	path: string;
+}) => {
+	const [isEditing, setIsEditing] = useState(false);
+
 	const form = useForm<z.infer<typeof CourseOnlinePriceSchema>>({
 		resolver: zodResolver(CourseOnlinePriceSchema),
 		defaultValues: {
-			onlinePrice: 0,
+			onlinePrice: initialValue || "",
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof CourseOnlinePriceSchema>) {
-		toast({
-			title: "You submitted the following values:",
-			description: (
-				<pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
+	async function onSubmit(data: z.infer<typeof CourseOnlinePriceSchema>) {
+		try {
+			await updateCourse({ courseId, data, path });
+
+			setIsEditing(!isEditing);
+		} catch (error) {
+			console.log(error);
+		}
 	}
+
+	console.log(initialValue);
+
 	return (
 		<div
 			className={
@@ -54,36 +65,64 @@ const CourseOnlinePrice = () => {
 						size={"sm"}
 						variant={"ghost"}
 						className=" font-bold text-xs uppercase"
+						onClick={() => setIsEditing(!isEditing)}
 					>
-						<Pen className="w-4 h-4 mr-2" />
-						Edit
+						{!isEditing && (
+							<>
+								<Pen className="w-4 h-4 mr-2" />
+								Edit
+							</>
+						)}
+						{isEditing && (
+							<>
+								<X className="w-4 h-4 mr-2" />
+								Close
+							</>
+						)}
 					</Button>
 				</div>
 				<div>
-					<p className="text-sm mt-4">40000</p>
-					{/* <Form {...form}>
-						<form
-							onSubmit={form.handleSubmit(onSubmit)}
-							className="space-y-3 mt-2"
-						>
-							<FormField
-								control={form.control}
-								name="name"
-								render={({ field }) => (
-									<FormItem>
-										<FormControl>
-											<Input
-												placeholder="Write the online price of your course..."
-												{...field}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<Button type="submit">Update</Button>
-						</form>
-					</Form> */}
+					{!isEditing && initialValue !== undefined && (
+						<p className="text-sm mt-4">
+							{formatToNaira(initialValue)}
+						</p>
+					)}
+					{!isEditing && !initialValue && (
+						<p className="text-sm mt-4 italic">No price set</p>
+					)}
+					{isEditing && (
+						<Form {...form}>
+							<form
+								onSubmit={form.handleSubmit(onSubmit)}
+								className="space-y-3 mt-2"
+							>
+								<FormField
+									control={form.control}
+									name="onlinePrice"
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<Input
+													type="number"
+													placeholder="Write the online price for your course..."
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<Button
+									disabled={form.formState.isSubmitting}
+									type="submit"
+								>
+									{form.formState.isSubmitting
+										? "Updating..."
+										: "Update"}
+								</Button>
+							</form>
+						</Form>
+					)}
 				</div>
 			</div>
 		</div>

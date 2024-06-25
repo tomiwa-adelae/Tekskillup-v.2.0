@@ -38,20 +38,17 @@ export function MobileNavbar() {
 										pathname === route ||
 										pathname.startsWith(`${route}/`);
 									return (
-										<>
-											<SheetClose asChild key={route}>
-												<Link
-													href={route}
-													className={`${
-														isActive &&
-														"text-primary font-extrabold"
-													} text-xs hover:underline hover:text-primary cursor-pointer`}
-												>
-													{label}
-												</Link>
-											</SheetClose>
-											<Separator />
-										</>
+										<SheetClose asChild key={route}>
+											<Link
+												href={route}
+												className={`${
+													isActive &&
+													"text-primary font-extrabold"
+												} text-xs hover:underline hover:text-primary cursor-pointer`}
+											>
+												{label}
+											</Link>
+										</SheetClose>
 									);
 								})}
 							</ul>

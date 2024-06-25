@@ -95,7 +95,7 @@ export const InfiniteMovingCompanies = ({
 				)}
 			>
 				{items.map((item, idx) => (
-					<li key={item.name}>
+					<li key={idx}>
 						<Image
 							src={item.imageURL}
 							alt={item.name}
