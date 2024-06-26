@@ -41,7 +41,6 @@ import {
 
 import { CourseCategorySchema } from "@/lib/validations";
 import { updateCourse } from "@/lib/actions/ourcourse.actions";
-import { CategorySelection } from "./CategorySelection";
 
 import { ICategory } from "@/lib/database/models/category.model";
 import { Input } from "@/components/ui/input";
