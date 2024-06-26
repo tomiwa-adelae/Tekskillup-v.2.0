@@ -8,7 +8,7 @@ interface ILesson {
 // Define the OurCourse interface
 interface IOurCourse extends Document {
 	user: Schema.Types.ObjectId;
-	category: Schema.Types.ObjectId;
+	category?: Schema.Types.ObjectId;
 	name: string;
 	description?: string;
 	picture?: string;
@@ -33,7 +33,6 @@ const OurCourseSchema = new Schema<IOurCourse>(
 		},
 		category: {
 			type: Schema.Types.ObjectId,
-			required: true,
 			ref: "Category",
 		},
 		name: {

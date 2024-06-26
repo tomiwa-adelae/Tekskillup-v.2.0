@@ -1,12 +1,12 @@
 "use client";
 
-import { Pen, X } from "lucide-react";
+import { Pen, Plus, X } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { useState } from "react";
+import { startTransition, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,9 +16,39 @@ import {
 	FormItem,
 	FormMessage,
 } from "@/components/ui/form";
+
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 import { CourseCategorySchema } from "@/lib/validations";
 import { updateCourse } from "@/lib/actions/ourcourse.actions";
 import { CategorySelection } from "./CategorySelection";
+
+import { ICategory } from "@/lib/database/models/category.model";
+import { Input } from "@/components/ui/input";
+import {
+	createCategory,
+	getAllCategories,
+} from "@/lib/actions/category.actions";
 
 const CourseCategory = ({
 	initialValue,
@@ -31,6 +61,9 @@ const CourseCategory = ({
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 
+	const [newCategory, setNewCategory] = useState("");
+	const [categories, setCategories] = useState<ICategory[]>([]);
+
 	const form = useForm<z.infer<typeof CourseCategorySchema>>({
 		resolver: zodResolver(CourseCategorySchema),
 		defaultValues: {
@@ -38,12 +71,28 @@ const CourseCategory = ({
 		},
 	});
 
+	useEffect(() => {
+		const fetchAllCategories = async () => {
+			const categoryList = await getAllCategories();
+
+			categoryList && setCategories(categoryList as ICategory[]);
+		};
+		fetchAllCategories();
+	}, []);
+
+	const handleAddCategory = async () => {
+		const newlyAddedCategory = await createCategory({
+			name: newCategory.trim(),
+		});
+
+		setCategories((prevState) => [...prevState, newlyAddedCategory]);
+	};
+
 	async function onSubmit(data: z.infer<typeof CourseCategorySchema>) {
 		try {
-			// await updateCourse({ courseId, data, path });
+			await updateCourse({ courseId, data, path });
 
-			// setIsEditing(!isEditing);
-			console.log(data);
+			setIsEditing(!isEditing);
 		} catch (error) {
 			console.log(error);
 		}
@@ -100,12 +149,92 @@ const CourseCategory = ({
 									render={({ field }) => (
 										<FormItem>
 											<FormControl>
-												<CategorySelection
-													value={initialValue}
-													onChangeHandler={
+												<Select
+													onValueChange={
 														field.onChange
 													}
-												/>
+													defaultValue={field.value}
+												>
+													<SelectTrigger>
+														<SelectValue placeholder="Select a category" />
+													</SelectTrigger>
+													<SelectContent>
+														{categories.length !==
+															0 &&
+															categories.map(
+																(category) => (
+																	<SelectItem
+																		key={
+																			category._id!
+																		}
+																		value={
+																			category.name!
+																		}
+																	>
+																		{
+																			category.name
+																		}
+																	</SelectItem>
+																)
+															)}
+														{categories.length ===
+															0 && (
+															<p className="text-xs italic text-center p-4">
+																No categories
+																yet
+															</p>
+														)}
+
+														<div className="mt-4 w-full">
+															<AlertDialog>
+																<AlertDialogTrigger className="w-full">
+																	<div className="p-4 text-center flex items-center justify-center font-bold uppercase text-xs hover:bg-slate-200 rounded">
+																		<Plus className="mr-2 w-4 h-4" />
+																		Add new
+																		category
+																	</div>
+																</AlertDialogTrigger>
+																<AlertDialogContent>
+																	<AlertDialogHeader>
+																		<AlertDialogTitle>
+																			New
+																			category
+																		</AlertDialogTitle>
+																		<AlertDialogDescription>
+																			<Input
+																				type="text"
+																				placeholder="Category name..."
+																				onChange={(
+																					e
+																				) =>
+																					setNewCategory(
+																						e
+																							.target
+																							.value
+																					)
+																				}
+																			/>
+																		</AlertDialogDescription>
+																	</AlertDialogHeader>
+																	<AlertDialogFooter>
+																		<AlertDialogCancel>
+																			Cancel
+																		</AlertDialogCancel>
+																		<AlertDialogAction
+																			onClick={() =>
+																				startTransition(
+																					handleAddCategory
+																				)
+																			}
+																		>
+																			Add
+																		</AlertDialogAction>
+																	</AlertDialogFooter>
+																</AlertDialogContent>
+															</AlertDialog>
+														</div>
+													</SelectContent>
+												</Select>
 											</FormControl>
 											<FormMessage />
 										</FormItem>

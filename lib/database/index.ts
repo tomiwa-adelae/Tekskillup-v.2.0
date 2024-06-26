@@ -14,7 +14,7 @@ export const connectToDatabase = async () => {
 		mongoose.connect(
 			"mongodb+srv://thetommedia:p7rsIZcZyJUXi2BF@tekskillup.worw58s.mongodb.net/?retryWrites=true&w=majority&appName=Tekskillup",
 			{
-				dbName: "tekskillup",
+				dbName: "Tekskillup",
 				bufferCommands: false,
 			}
 		);
