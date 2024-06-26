@@ -9,6 +9,7 @@ interface ICategory extends Document {
 const CategorySchema = new Schema<ICategory>({
 	name: {
 		type: String,
+		required: true,
 		unique: true,
 	},
 });

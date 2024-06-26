@@ -159,7 +159,7 @@ const CourseCategory = ({
 														<SelectValue placeholder="Select a category" />
 													</SelectTrigger>
 													<SelectContent>
-														{categories.length !==
+														{/* {categories.length !==
 															0 &&
 															categories.map(
 																(category) => (
@@ -176,7 +176,7 @@ const CourseCategory = ({
 																		}
 																	</SelectItem>
 																)
-															)}
+															)} */}
 														{categories.length ===
 															0 && (
 															<p className="text-xs italic text-center p-4">
