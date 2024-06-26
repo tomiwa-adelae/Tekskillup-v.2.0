@@ -43,9 +43,8 @@ export async function createCourse({
 		const user = await getUserById(userId);
 
 		const newCourse = await OurCourse.create({ name, user: user._id });
-		console.log(newCourse);
 
-		// return JSON.parse(JSON.stringify(newCourse));
+		return JSON.parse(JSON.stringify(newCourse));
 	} catch (error) {
 		handleError(error);
 	}
