@@ -22,52 +22,7 @@ import { Ellipsis, Mail, Pencil, Telescope } from "lucide-react";
 import Link from "next/link";
 import { DeleteUserAlertModal } from "./DeleteUserAlertModal";
 
-const users = [
-	{
-		name: "Praise johnson",
-		email: "praise@gmail.com",
-		phoneNumber: "08027836001",
-		image: "/assets/images/user.jpg",
-		id: "1",
-	},
-	{
-		name: "Praise johnson",
-		email: "praise@gmail.com",
-		phoneNumber: "08027836001",
-		image: "/assets/images/user.jpg",
-		id: "1",
-	},
-	{
-		name: "Praise johnson",
-		email: "praise@gmail.com",
-		phoneNumber: "08027836001",
-		image: "/assets/images/user.jpg",
-		id: "1",
-	},
-	{
-		name: "Praise johnson",
-		email: "praise@gmail.com",
-		phoneNumber: "08027836001",
-		image: "/assets/images/user.jpg",
-		id: "1",
-	},
-	{
-		name: "Praise johnson",
-		email: "praise@gmail.com",
-		phoneNumber: "08027836001",
-		image: "/assets/images/user.jpg",
-		id: "1",
-	},
-	{
-		name: "Praise johnson",
-		email: "praise@gmail.com",
-		phoneNumber: "08027836001",
-		image: "/assets/images/user.jpg",
-		id: "1",
-	},
-];
-
-export function UsersTable() {
+export function UsersTable({ users }: { users: any }) {
 	return (
 		<motion.div
 			// @ts-ignore
@@ -88,35 +43,38 @@ export function UsersTable() {
 					</TableHeader>
 					<TableBody>
 						{users.map(
-							({ name, email, phoneNumber, id }, index) => (
-								<TableRow key={index}>
+							(
+								user: {
+									firstName: string;
+									lastName: string;
+									email: string;
+									phoneNumber: string;
+									_id: string;
+								},
+								index: string
+							) => (
+								<TableRow key={user._id}>
 									<TableCell className="font-medium">
-										{index + 1}
+										{index + 1}.
+									</TableCell>
+									<TableCell>
+										{user.firstName} {user.lastName}
 									</TableCell>
 									<TableCell>
 										<a
 											target="_blank"
 											className="hover:underline hover:text-green-400"
-											href={`/users/${id}`}
+											href={`mailto:${user.email}`}
 										>
-											{name}
-										</a>
-									</TableCell>
-									<TableCell>
-										<a
-											target="_blank"
-											className="hover:underline hover:text-green-400"
-											href={`mailto:${email}`}
-										>
-											{email}
+											{user.email}
 										</a>
 									</TableCell>
 									<TableCell>
 										<a
 											className="hover:underline hover:text-green-400"
-											href={`tel:${phoneNumber}`}
+											href={`tel:${user.phoneNumber}`}
 										>
-											{phoneNumber}
+											{user.phoneNumber}
 										</a>
 									</TableCell>
 									<TableCell>
@@ -125,16 +83,9 @@ export function UsersTable() {
 												<Ellipsis className="cursor-pointer" />
 											</DropdownMenuTrigger>
 											<DropdownMenuContent>
-												<Link href={`/users/${id}`}>
-													<DropdownMenuItem className="">
-														<Telescope className="mr-2 h-4 w-4" />
-														<span className="font-bold text-xs">
-															Visit
-														</span>
-													</DropdownMenuItem>
-												</Link>
-												<DropdownMenuSeparator />
-												<a href={`mailto:${email}`}>
+												<a
+													href={`mailto:${user.email}`}
+												>
 													<DropdownMenuItem className="">
 														<Mail className="mr-2 h-4 w-4" />
 														<span className="font-bold text-xs">
@@ -143,8 +94,7 @@ export function UsersTable() {
 													</DropdownMenuItem>
 												</a>
 												<DropdownMenuSeparator />
-
-												<DeleteUserAlertModal />
+												<DeleteUserAlertModal id={user._id} path={'/users'} />
 											</DropdownMenuContent>
 										</DropdownMenu>
 									</TableCell>

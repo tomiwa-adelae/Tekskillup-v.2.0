@@ -1,3 +1,4 @@
+"use client";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -10,9 +11,23 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { deleteCourseLesson } from "@/lib/actions/ourcourse.actions";
 import { Trash } from "lucide-react";
+import { startTransition } from "react";
 
-export function DeleteCourseLessonDialog() {
+export function DeleteCourseLessonDialog({
+	courseId,
+	lessonId,
+	path,
+}: {
+	courseId: string;
+	lessonId: string;
+	path: string;
+}) {
+	const handleDeleteLesson = async () => {
+		await deleteCourseLesson({ courseId, lessonId, path });
+	};
+
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
@@ -33,7 +48,11 @@ export function DeleteCourseLessonDialog() {
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction>Continue</AlertDialogAction>
+					<AlertDialogAction
+						onClick={() => startTransition(handleDeleteLesson)}
+					>
+						Continue
+					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

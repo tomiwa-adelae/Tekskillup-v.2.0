@@ -16,6 +16,10 @@ export const getAllCategories = async () => {
 	}
 };
 
+export const getCategoryByName = async (name: string) => {
+	return Category.findOne({ name: { $regex: name, $options: "i" } });
+};
+
 export const createCategory = async ({ name }: { name: string }) => {
 	try {
 		await connectToDatabase();

@@ -54,10 +54,12 @@ const CourseCategory = ({
 	courseId,
 	path,
 }: {
-	initialValue: string;
+	initialValue: any;
 	courseId: string;
 	path: string;
 }) => {
+	console.log(initialValue);
+
 	const [isEditing, setIsEditing] = useState(false);
 
 	const [newCategory, setNewCategory] = useState("");
@@ -70,9 +72,13 @@ const CourseCategory = ({
 		},
 	});
 
+	console.log(initialValue);
+
 	useEffect(() => {
 		const fetchAllCategories = async () => {
 			const categoryList = await getAllCategories();
+
+			console.log(categoryList);
 
 			categoryList && setCategories(categoryList as ICategory[]);
 		};
@@ -152,22 +158,25 @@ const CourseCategory = ({
 													onValueChange={
 														field.onChange
 													}
-													defaultValue={field.value}
+													defaultValue={initialValue}
 												>
 													<SelectTrigger>
 														<SelectValue placeholder="Select a category" />
 													</SelectTrigger>
 													<SelectContent>
-														{/* {categories.length !==
+														{categories.length !==
 															0 &&
 															categories.map(
-																(category) => (
+																(
+																	category,
+																	index
+																) => (
 																	<SelectItem
 																		key={
-																			category._id!
+																			index
 																		}
 																		value={
-																			category.name!
+																			category._id!
 																		}
 																	>
 																		{
@@ -175,7 +184,7 @@ const CourseCategory = ({
 																		}
 																	</SelectItem>
 																)
-															)} */}
+															)}
 														{categories.length ===
 															0 && (
 															<p className="text-xs italic text-center p-4">
@@ -205,13 +214,13 @@ const CourseCategory = ({
 																				placeholder="Category name..."
 																				onChange={(
 																					e
-																				) =>
+																				) => {
 																					setNewCategory(
 																						e
 																							.target
 																							.value
-																					)
-																				}
+																					);
+																				}}
 																			/>
 																		</AlertDialogDescription>
 																	</AlertDialogHeader>

@@ -1,16 +1,30 @@
 "use client";
 import {
+	Area,
+	AreaChart,
 	Bar,
 	BarChart,
 	CartesianGrid,
 	Legend,
+	Line,
+	LineChart,
 	ResponsiveContainer,
 	Tooltip,
 	XAxis,
 	YAxis,
 } from "recharts";
 
-const Charts = () => {
+const Charts = ({
+	users,
+}: {
+	users: {
+		firstName: string;
+		lastName: string;
+		email: string;
+		phoneNumber: string;
+		_id: string;
+	}[];
+}) => {
 	const data = [
 		{
 			name: "Page A",
@@ -56,12 +70,35 @@ const Charts = () => {
 		},
 	];
 
+	console.log(users);
+
+	// Extract dates and count occurrences
+	const dateCounts = users.reduce((acc: any, user: any) => {
+		const date = new Date(user.createdAt).toISOString().split("T")[0]; // Extract date part
+		acc[date] = (acc[date] || 0) + 1; // Count occurrences
+		return acc;
+	}, {});
+
+	// Prepare data for Recharts
+	const chartData = Object.keys(dateCounts).map((date) => ({
+		date,
+		Number: dateCounts[date],
+	}));
+
 	return (
 		<div className="mt-8">
 			<div>
 				<ResponsiveContainer width="100%" height={400}>
-					<BarChart
-						data={data}
+					<LineChart width={300} height={100} data={chartData}>
+						<Line
+							type="monotone"
+							dataKey="Number"
+							stroke="#104F19"
+							strokeWidth={2}
+						/>
+					</LineChart>
+					{/* <BarChart
+						data={chartData}
 						margin={{
 							top: 20,
 							right: 30,
@@ -81,11 +118,33 @@ const Charts = () => {
 						<Tooltip />
 						<Legend />
 						<Bar
-							dataKey="pv"
+							dataKey="Number"
 							fill="#104F19"
 							radius={[4, 4, 0, 0]}
 						/>
-					</BarChart>
+					</BarChart> */}
+					{/* <AreaChart
+						width={500}
+						height={400}
+						data={chartData}
+						margin={{
+							top: 10,
+							right: 30,
+							left: 0,
+							bottom: 0,
+						}}
+					>
+						<CartesianGrid strokeDasharray="3 3" />
+						<XAxis dataKey="name" />
+						<YAxis />
+						<Tooltip />
+						<Area
+							type="monotone"
+							dataKey="Number"
+							stroke="#104F19"
+							fill="#104F19"
+						/>
+					</AreaChart> */}
 				</ResponsiveContainer>
 			</div>
 		</div>

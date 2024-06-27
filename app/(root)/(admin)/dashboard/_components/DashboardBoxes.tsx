@@ -11,7 +11,15 @@ import Link from "next/link";
 import UsersLineChart from "./UsersLineChart";
 import CoursesLineChart from "./CoursesLineChart";
 
-const DashboardBoxes = () => {
+const DashboardBoxes = ({
+	courses,
+	users,
+	userCharts,
+}: {
+	courses: string;
+	users: string;
+	userCharts: string;
+}) => {
 	return (
 		<motion.div
 			// @ts-ignore
@@ -41,10 +49,10 @@ const DashboardBoxes = () => {
 								Courses
 							</h4>
 							<h4 className="font-bold text-xl uppercase text-green-400">
-								5
+								{courses}
 							</h4>
 						</div>
-						<UsersLineChart />
+						<CoursesLineChart />
 					</Link>
 				</motion.div>
 				<motion.div
@@ -66,10 +74,10 @@ const DashboardBoxes = () => {
 						/>
 						<h4 className="font-bold text-base uppercase">Users</h4>
 						<h4 className="font-bold text-xl uppercase text-green-400">
-							5
+							{users}
 						</h4>
 					</Link>
-					<CoursesLineChart />
+					<UsersLineChart users={userCharts} />
 				</motion.div>
 			</BentoGrid>
 		</motion.div>

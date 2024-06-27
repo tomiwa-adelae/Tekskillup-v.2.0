@@ -7,8 +7,30 @@ import SubHeader from "../../../_components/SubHeader";
 import { Button } from "@/components/ui/button";
 import { BadgeCheck } from "lucide-react";
 import { DeleteCourseAlertModal } from "./DeleteCourseAlertModal";
+import {
+	publishCourse,
+	unPublishCourse,
+	updateCourse,
+} from "@/lib/actions/ourcourse.actions";
+import { useToast } from "@/components/ui/use-toast";
 
-const CourseHeader = ({ name }: { name: string }) => {
+const CourseHeader = ({
+	name,
+	completedText,
+	isComplete,
+	isPublished,
+	path,
+	courseId,
+}: {
+	name: string;
+	path: string;
+	courseId: string;
+	isComplete: boolean;
+	isPublished: boolean;
+	completedText: string;
+}) => {
+	const { toast } = useToast();
+
 	return (
 		<motion.div // @ts-ignore
 			variants={staggerContainer}
@@ -19,7 +41,7 @@ const CourseHeader = ({ name }: { name: string }) => {
 			<div className="w-full">
 				<SubHeader
 					title={name}
-					description={"Completed fields (3/9)"}
+					description={`Completed fields (${completedText})`}
 				/>
 			</div>
 			<div className="flex items-center w-full justify-between md:justify-end gap-3">
@@ -27,10 +49,57 @@ const CourseHeader = ({ name }: { name: string }) => {
 					className="w-full md:w-auto"
 					variants={fadeIn("left", "spring", 0.5, 0.75)}
 				>
-					<Button className="w-full md:w-auto">
-						Publish
-						<BadgeCheck className="w-4 h-4 ml-2" />
-					</Button>
+					{isPublished && (
+						<Button
+							disabled={!isComplete}
+							className="w-full md:w-auto"
+							variant={"ghost"}
+							onClick={async () => {
+								try {
+									await unPublishCourse({
+										courseId,
+										path,
+									});
+									toast({
+										title: "Success",
+									});
+								} catch (error) {
+									toast({
+										variant: "destructive",
+										title: "Something went wrong.",
+									});
+								}
+							}}
+						>
+							Unpublish
+							<BadgeCheck className="w-4 h-4 ml-2" />
+						</Button>
+					)}
+					{!isPublished && (
+						<Button
+							disabled={!isComplete}
+							className="w-full md:w-auto"
+							onClick={async () => {
+								try {
+									await publishCourse({
+										courseId,
+										path,
+									});
+									toast({
+										title: "Success",
+									});
+								} catch (error) {
+									toast({
+										variant: "destructive",
+										title: "Something went wrong.",
+									});
+								}
+							}}
+						>
+							Publish
+							<BadgeCheck className="w-4 h-4 ml-2" />
+						</Button>
+					)}
 				</motion.div>
 				<motion.div
 					className="w-full md:w-auto"

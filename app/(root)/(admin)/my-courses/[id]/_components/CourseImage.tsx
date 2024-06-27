@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { ImageIcon, Pen, X } from "lucide-react";
 
-import { toast } from "@/components/ui/use-toast";
+import { toast, useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 
 import { UploadDropzone } from "@/lib/uploadthing";
@@ -21,6 +21,9 @@ const CourseImage = ({
 	path: string;
 	name: string;
 }) => {
+
+	const { toast } = useToast();
+
 	const [isEditing, setIsEditing] = useState(false);
 
 	const [imageData, setImageData] = useState("");
@@ -31,7 +34,9 @@ const CourseImage = ({
 		await updateCourse({ courseId, data: { picture: url?.[0].url }, path });
 
 		setIsEditing(!isEditing);
-		window.alert("Upload completed");
+		toast({
+			title: "Success",
+		});
 	};
 
 	return (

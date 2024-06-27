@@ -1,18 +1,58 @@
 "use server";
-import { GetAllCourseParams } from "@/types";
 import { connectToDatabase } from "../database";
 import { handleError } from "../utils";
 import { getUserById } from "./user.actions";
 import OurCourse from "../database/models/ourcourse.model";
 import { revalidatePath } from "next/cache";
+import { FetchAllCoursesParams } from "@/types";
+import { getAllCategories, getCategoryByName } from "./category.actions";
 
-export async function fetchAllCourses() {
+export async function fetchAllCourses({
+	query,
+	limit = 10,
+	page,
+	category,
+}: FetchAllCoursesParams) {
 	try {
 		await connectToDatabase();
 
-		const courses = await OurCourse.find();
+		const titleCondition = query
+			? {
+					$or: [
+						{
+							name: { $regex: query, $options: "i" },
+						},
+						{
+							description: { $regex: query, $options: "i" },
+						},
+					],
+			  }
+			: {};
+		const categoryCondition = category
+			? await getCategoryByName(category)
+			: null;
 
-		return JSON.parse(JSON.stringify(courses));
+		const condition = {
+			$and: [
+				titleCondition,
+				categoryCondition ? { category: categoryCondition._id } : {},
+			],
+		};
+
+		const skipAmount = (Number(page) - 1) * limit;
+
+		const courses = await OurCourse.find(condition)
+			.populate("category")
+			.sort({ createdAt: "desc" })
+			.skip(skipAmount)
+			.limit(limit);
+
+		const courseCount = await OurCourse.countDocuments(condition);
+
+		return {
+			data: JSON.parse(JSON.stringify(courses)),
+			totalPages: Math.ceil(courseCount / limit),
+		};
 	} catch (error) {
 		handleError(error);
 	}
@@ -22,7 +62,8 @@ export async function getCourseById(id: string) {
 	try {
 		await connectToDatabase();
 
-		const course = await OurCourse.findById(id);
+		const course = await OurCourse.findById(id).populate("category");
+		console.log(course);
 
 		return JSON.parse(JSON.stringify(course));
 	} catch (error) {
@@ -76,8 +117,60 @@ export async function updateCourse({
 		course.weekdaysDate = data.weekdaysDate || course.weekdaysDate;
 		course.picture = data.picture || course.picture;
 
+		console.log("isPublished", data, course);
+
 		await course.save();
 		revalidatePath(path);
+	} catch (error) {
+		handleError(error);
+	}
+}
+
+export async function unPublishCourse({
+	courseId,
+	path,
+}: {
+	courseId: string;
+	path: string;
+}) {
+	try {
+		await connectToDatabase();
+
+		const course = await OurCourse.findById(courseId);
+
+		if (!course) throw new Error("Course not found");
+
+		course.isPublished = false;
+
+		await course.save();
+		revalidatePath(path);
+
+		console.log("Yes, we gat it");
+	} catch (error) {
+		handleError(error);
+	}
+}
+
+export async function publishCourse({
+	courseId,
+	path,
+}: {
+	courseId: string;
+	path: string;
+}) {
+	try {
+		await connectToDatabase();
+
+		const course = await OurCourse.findById(courseId);
+
+		if (!course) throw new Error("Course not found");
+
+		course.isPublished = true;
+
+		await course.save();
+		revalidatePath(path);
+
+		console.log("Yes, we gat it");
 	} catch (error) {
 		handleError(error);
 	}
@@ -104,6 +197,31 @@ export async function updateCourseLessons({
 		};
 
 		course.lessons.push(lesson);
+		await course.save();
+		revalidatePath(path);
+	} catch (error) {
+		handleError(error);
+	}
+}
+
+export async function deleteCourseLesson({
+	courseId,
+	lessonId,
+	path,
+}: {
+	courseId: string;
+	lessonId: string;
+	path: string;
+}) {
+	try {
+		await connectToDatabase();
+
+		const course = await OurCourse.findById(courseId);
+
+		if (!course) throw new Error("Course not found");
+
+		course.lessons.pull({ _id: lessonId });
+
 		await course.save();
 		revalidatePath(path);
 	} catch (error) {

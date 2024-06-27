@@ -24,67 +24,9 @@ import { Ellipsis, Pencil, Telescope, Trash } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { DeleteCourseAlertModal } from "./DeleteCourseAlertModal";
+import { formatToNaira } from "@/lib/utils";
 
-const courses = [
-	{
-		isPublished: false,
-		name: "MERN Stack Course",
-		onlinePrice: 40000,
-		weekendPrice: 40220,
-		weekdaysPrice: 20220,
-		id: "1",
-	},
-	{
-		isPublished: true,
-		name: "MERN Stack Course",
-		onlinePrice: 40000,
-		weekendPrice: 40220,
-		weekdaysPrice: 20220,
-		id: "1",
-	},
-	{
-		isPublished: true,
-		name: "MERN Stack Course",
-		onlinePrice: 40000,
-		weekendPrice: 40220,
-		weekdaysPrice: 20220,
-		id: "1",
-	},
-	{
-		isPublished: true,
-		name: "MERN Stack Course",
-		onlinePrice: 40000,
-		weekendPrice: 40220,
-		weekdaysPrice: 20220,
-		id: "1",
-	},
-	{
-		isPublished: true,
-		name: "MERN Stack Course",
-		onlinePrice: 40000,
-		weekendPrice: 40220,
-		weekdaysPrice: 20220,
-		id: "1",
-	},
-	{
-		isPublished: true,
-		name: "MERN Stack Course",
-		onlinePrice: 40000,
-		weekendPrice: 40220,
-		weekdaysPrice: 20220,
-		id: "2",
-	},
-	{
-		isPublished: true,
-		name: "MERN Stack Course",
-		onlinePrice: 40000,
-		weekendPrice: 40220,
-		weekdaysPrice: 20220,
-		id: "1",
-	},
-];
-
-export function CoursesTable() {
+export function CoursesTable({ courses }: { courses: any }) {
 	return (
 		<motion.div
 			// @ts-ignore
@@ -99,6 +41,7 @@ export function CoursesTable() {
 						<TableRow>
 							<TableHead>S/N</TableHead>
 							<TableHead>Name</TableHead>
+							<TableHead>Category</TableHead>
 							<TableHead>Online price</TableHead>
 							<TableHead>Weekend price</TableHead>
 							<TableHead>Weekdays price</TableHead>
@@ -108,33 +51,59 @@ export function CoursesTable() {
 					<TableBody>
 						{courses.map(
 							(
-								{
-									name,
-									onlinePrice,
-									weekdaysPrice,
-									weekendPrice,
-									isPublished,
-									id,
+								course: {
+									name: string;
+									category?: { name?: string };
+									onlinePrice: any;
+									weekendPrice: any;
+									weekdaysPrice: any;
+									isPublished: boolean;
+									_id: string;
 								},
-								index
+								index: string
 							) => (
 								<TableRow key={index}>
 									<TableCell className="font-medium">
-										{index + 1}
+										{index + 1}.
 									</TableCell>
 									<TableCell>
 										<Link
 											className="hover:underline hover:text-green-400"
-											href={`/my-courses/${id}`}
+											href={`/my-courses/${course._id}`}
 										>
-											{name}
+											{course.name}
 										</Link>
 									</TableCell>
-									<TableCell>{onlinePrice}</TableCell>
-									<TableCell>{weekendPrice}</TableCell>
-									<TableCell>{weekdaysPrice}</TableCell>
+									<TableCell>
+										{course?.category?.name || (
+											<p className="italic">
+												No category
+											</p>
+										)}
+									</TableCell>
+									<TableCell>
+										{course.onlinePrice !== undefined &&
+											formatToNaira(course.onlinePrice)}
+										{course.onlinePrice === undefined && (
+											<p className="italic">No price</p>
+										)}
+									</TableCell>
+									<TableCell>
+										{course.weekendPrice !== undefined &&
+											formatToNaira(course.weekendPrice)}
+										{course.weekendPrice === undefined && (
+											<p className="italic">No price</p>
+										)}
+									</TableCell>
+									<TableCell>
+										{course.weekdaysPrice !== undefined &&
+											formatToNaira(course.weekdaysPrice)}
+										{course.weekdaysPrice === undefined && (
+											<p className="italic">No price</p>
+										)}
+									</TableCell>
 									<TableCell className="text-right">
-										{isPublished ? (
+										{course.isPublished ? (
 											<Badge className="bg-green-400">
 												Published
 											</Badge>
@@ -151,7 +120,7 @@ export function CoursesTable() {
 											</DropdownMenuTrigger>
 											<DropdownMenuContent>
 												<Link
-													href={`/my-courses/${id}`}
+													href={`/my-courses/${course._id}`}
 												>
 													<DropdownMenuItem className="">
 														<Telescope className="mr-2 h-4 w-4" />
@@ -162,7 +131,7 @@ export function CoursesTable() {
 												</Link>
 												<DropdownMenuSeparator />
 												<Link
-													href={`/my-courses/${id}`}
+													href={`/my-courses/${course._id}`}
 												>
 													<DropdownMenuItem className="">
 														<Pencil className="mr-2 h-4 w-4" />

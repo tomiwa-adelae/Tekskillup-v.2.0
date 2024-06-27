@@ -23,19 +23,45 @@ interface CourseProp {
 	weekdaysPrice: string;
 	weekdaysDate: string;
 	weekendDate: string;
-	isPublished: string;
-	category: string;
+	isPublished: boolean;
+	category: { name: string };
 	lessons: {
 		content: string;
-	};
+	}[];
 }
 
 const page = async ({ params: { id } }: SearchParamProps) => {
 	const course: CourseProp = await getCourseById(id);
 
+	const requiredField = [
+		course?.name,
+		course?.picture,
+		course?.description,
+		course?.onlinePrice,
+		course?.weekendPrice,
+		course?.weekdaysPrice,
+		course?.weekdaysDate,
+		course?.weekendDate,
+		course?.lessons.length !== 0,
+	];
+
+	const totalFields = requiredField.length;
+
+	const completedFields = requiredField.filter(Boolean).length;
+	const completedText = `${completedFields}/${totalFields}`;
+
+	const isComplete = requiredField.every(Boolean);
+
 	return (
 		<div>
-			<CourseHeader name={course.name} />
+			<CourseHeader
+				name={course.name}
+				completedText={completedText}
+				isComplete={isComplete}
+				isPublished={course.isPublished}
+				path={`/my-courses/${course._id}`}
+				courseId={course._id}
+			/>
 			<BentoGrid className="mt-12">
 				<CourseName
 					initialValue={course.name}
@@ -59,7 +85,7 @@ const page = async ({ params: { id } }: SearchParamProps) => {
 					path={`/my-courses/${course._id}`}
 				/>
 				<CourseCategory
-					initialValue={course.category}
+					initialValue={course?.category?.name}
 					courseId={course._id}
 					path={`/my-courses/${course._id}`}
 				/>

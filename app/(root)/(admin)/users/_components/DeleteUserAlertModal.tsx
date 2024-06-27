@@ -9,9 +9,21 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { deleteUser } from "@/lib/actions/user.actions";
 import { Trash } from "lucide-react";
+import { startTransition } from "react";
 
-export function DeleteUserAlertModal() {
+export function DeleteUserAlertModal({
+	id,
+	path,
+}: {
+	path: string;
+	id: string;
+}) {
+	const handleDeleteUser = async () => {
+		await deleteUser({ userId: id, path });
+	};
+
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
@@ -33,7 +45,11 @@ export function DeleteUserAlertModal() {
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction>Continue</AlertDialogAction>
+					<AlertDialogAction
+						onClick={() => startTransition(handleDeleteUser)}
+					>
+						Continue
+					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

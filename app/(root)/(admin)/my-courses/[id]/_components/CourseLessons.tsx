@@ -93,7 +93,7 @@ const CourseLessons = ({
 						{!isEditing &&
 							initialLessons.map(
 								(
-									lesson: { content: string },
+									lesson: { content: string; _id: string },
 									index: number
 								) => (
 									<div className="w-full" key={index}>
@@ -102,7 +102,11 @@ const CourseLessons = ({
 											<p className="text-sm">
 												{lesson.content}
 											</p>
-											<DeleteCourseLessonDialog />
+											<DeleteCourseLessonDialog
+												lessonId={lesson._id}
+												courseId={courseId}
+												path={path}
+											/>
 										</div>
 									</div>
 								)
