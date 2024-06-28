@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { CourseOnlinePriceSchema } from "@/lib/validations";
-import { updateCourse } from "@/lib/actions/ourcourse.actions";
+import { updateCourse } from "@/lib/actions/course.actions";
 import { formatToNaira } from "@/lib/utils";
 
 const CourseOnlinePrice = ({

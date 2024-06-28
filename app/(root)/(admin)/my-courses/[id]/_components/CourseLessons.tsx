@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { CourseLessonSchema } from "@/lib/validations";
-import { updateCourseLessons } from "@/lib/actions/ourcourse.actions";
+import { updateCourseLessons } from "@/lib/actions/course.actions";
 import { DeleteCourseLessonDialog } from "./DeleteCourseLessonDialog";
 import { Separator } from "@/components/ui/separator";
 

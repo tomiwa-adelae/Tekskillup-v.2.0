@@ -11,7 +11,7 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { deleteCourseLesson } from "@/lib/actions/ourcourse.actions";
+import { deleteCourseLesson } from "@/lib/actions/course.actions";
 import { Trash } from "lucide-react";
 import { startTransition } from "react";
 

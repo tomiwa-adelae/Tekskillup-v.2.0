@@ -5,7 +5,7 @@ interface IRegisteredCourse extends Document {
 	course: Schema.Types.ObjectId;
 } // Adjust the path accordingly
 
-// Define the OurCourse schema
+// Define the RegisteredCourse schema
 const RegisteredCourseSchema = new Schema<IRegisteredCourse>(
 	{
 		user: {
@@ -22,7 +22,7 @@ const RegisteredCourseSchema = new Schema<IRegisteredCourse>(
 	{ timestamps: true }
 );
 
-// Define the OurCourse model
+// Define the RegisteredCourse model
 const RegisteredCourse =
 	models.RegisteredCourse ||
 	model<IRegisteredCourse>("RegisteredCourse", RegisteredCourseSchema);

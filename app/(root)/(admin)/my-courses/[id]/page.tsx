@@ -9,7 +9,7 @@ import CourseWeekdaysPrice from "./_components/CourseWeekdaysPrice";
 import CourseWeekdaysDate from "./_components/CourseWeekdaysDate";
 import CourseImage from "./_components/CourseImage";
 import { SearchParamProps } from "@/types";
-import { getCourseById } from "@/lib/actions/ourcourse.actions";
+import { getCourseById } from "@/lib/actions/course.actions";
 import CourseLessons from "./_components/CourseLessons";
 import CourseCategory from "./_components/CourseCategory";
 

@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { CourseDescriptionSchema } from "@/lib/validations";
-import { updateCourse } from "@/lib/actions/ourcourse.actions";
+import { updateCourse } from "@/lib/actions/course.actions";
 
 const CourseDescription = ({
 	initialValue,

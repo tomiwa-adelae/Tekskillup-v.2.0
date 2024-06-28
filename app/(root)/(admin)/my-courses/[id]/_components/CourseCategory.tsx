@@ -40,7 +40,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import { CourseCategorySchema } from "@/lib/validations";
-import { updateCourse } from "@/lib/actions/ourcourse.actions";
+import { updateCourse } from "@/lib/actions/course.actions";
 
 import { ICategory } from "@/lib/database/models/category.model";
 import { Input } from "@/components/ui/input";

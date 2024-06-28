@@ -8,7 +8,7 @@ import { useState } from "react";
 
 import { UploadDropzone } from "@/lib/uploadthing";
 import Image from "next/image";
-import { updateCourse } from "@/lib/actions/ourcourse.actions";
+import { updateCourse } from "@/lib/actions/course.actions";
 
 const CourseImage = ({
 	initialValue,
@@ -21,7 +21,6 @@ const CourseImage = ({
 	path: string;
 	name: string;
 }) => {
-
 	const { toast } = useToast();
 
 	const [isEditing, setIsEditing] = useState(false);

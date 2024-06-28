@@ -21,7 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import Link from "next/link";
-import { createCourse } from "@/lib/actions/ourcourse.actions";
+import { createCourse } from "@/lib/actions/course.actions";
 import { useRouter } from "next/navigation";
 import { CreateCourseSchema } from "@/lib/validations";
 

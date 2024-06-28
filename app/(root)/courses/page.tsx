@@ -8,7 +8,7 @@ import JoinNow from "@/components/JoinNow";
 import PopularInstructors from "./_components/PopularInstructors";
 import UpcomingCourses from "./_components/UpcomingCourses";
 import { SearchParamProps } from "@/types";
-import { fetchPublishedCourses } from "@/lib/actions/ourcourse.actions";
+import { fetchPublishedCourses } from "@/lib/actions/course.actions";
 
 const page = async ({ searchParams }: SearchParamProps) => {
 	const page = Number(searchParams?.page) || 1;

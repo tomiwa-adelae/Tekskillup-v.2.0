@@ -1,7 +1,7 @@
 import React from "react";
 import SubHeader from "../_components/SubHeader";
 import Charts from "./_components/Charts";
-import { fetchAllRegisteredCourses } from "@/lib/actions/ourcourse.actions";
+import { fetchAllRegisteredCourses } from "@/lib/actions/course.actions";
 
 const page = async () => {
 	const courses = await fetchAllRegisteredCourses();

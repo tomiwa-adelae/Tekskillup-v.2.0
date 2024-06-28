@@ -1,4 +1,4 @@
-import { fetchAllCourses } from "@/lib/actions/ourcourse.actions";
+import { fetchAllCourses } from "@/lib/actions/course.actions";
 import SubHeader from "../_components/SubHeader";
 import { CoursesTable } from "./_components/CoursesTable";
 import SearchBar from "@/components/SearchBar";

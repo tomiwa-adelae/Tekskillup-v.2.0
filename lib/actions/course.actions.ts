@@ -2,7 +2,7 @@
 import { connectToDatabase } from "../database";
 import { handleError } from "../utils";
 import { getUserById } from "./user.actions";
-import OurCourse from "../database/models/ourcourse.model";
+import Course from "../database/models/course.model";
 import { revalidatePath } from "next/cache";
 import { FetchAllCoursesParams } from "@/types";
 import { getAllCategories, getCategoryByName } from "./category.actions";
@@ -42,13 +42,13 @@ export async function fetchAllCourses({
 
 		const skipAmount = (Number(page) - 1) * limit;
 
-		const courses = await OurCourse.find(condition)
+		const courses = await Course.find(condition)
 			.populate("category")
 			.sort({ createdAt: "desc" })
 			.skip(skipAmount)
 			.limit(limit);
 
-		const courseCount = await OurCourse.countDocuments(condition);
+		const courseCount = await Course.countDocuments(condition);
 
 		return {
 			data: JSON.parse(JSON.stringify(courses)),
@@ -94,13 +94,13 @@ export async function fetchPublishedCourses({
 
 		const skipAmount = (Number(page) - 1) * limit;
 
-		const courses = await OurCourse.find(condition)
+		const courses = await Course.find(condition)
 			.populate("category")
 			.sort({ createdAt: "desc" })
 			.skip(skipAmount)
 			.limit(limit);
 
-		const courseCount = await OurCourse.countDocuments(condition);
+		const courseCount = await Course.countDocuments(condition);
 
 		return {
 			data: JSON.parse(JSON.stringify(courses)),
@@ -115,7 +115,7 @@ export async function getCourseById(id: string) {
 	try {
 		await connectToDatabase();
 
-		const course = await OurCourse.findById(id).populate("category");
+		const course = await Course.findById(id).populate("category");
 
 		return JSON.parse(JSON.stringify(course));
 	} catch (error) {
@@ -135,7 +135,7 @@ export async function createCourse({
 
 		const user = await getUserById(userId);
 
-		const newCourse = await OurCourse.create({ name, user: user._id });
+		const newCourse = await Course.create({ name, user: user._id });
 
 		return JSON.parse(JSON.stringify(newCourse));
 	} catch (error) {
@@ -155,7 +155,7 @@ export async function updateCourse({
 	try {
 		await connectToDatabase();
 
-		const course = await OurCourse.findById(courseId);
+		const course = await Course.findById(courseId);
 
 		if (!course) throw new Error("Course not found");
 
@@ -188,7 +188,7 @@ export async function unPublishCourse({
 	try {
 		await connectToDatabase();
 
-		const course = await OurCourse.findById(courseId);
+		const course = await Course.findById(courseId);
 
 		if (!course) throw new Error("Course not found");
 
@@ -213,7 +213,7 @@ export async function publishCourse({
 	try {
 		await connectToDatabase();
 
-		const course = await OurCourse.findById(courseId);
+		const course = await Course.findById(courseId);
 
 		if (!course) throw new Error("Course not found");
 
@@ -240,7 +240,7 @@ export async function updateCourseLessons({
 	try {
 		await connectToDatabase();
 
-		const course = await OurCourse.findById(courseId);
+		const course = await Course.findById(courseId);
 
 		if (!course) throw new Error("Course not found");
 
@@ -268,7 +268,7 @@ export async function deleteCourseLesson({
 	try {
 		await connectToDatabase();
 
-		const course = await OurCourse.findById(courseId);
+		const course = await Course.findById(courseId);
 
 		if (!course) throw new Error("Course not found");
 

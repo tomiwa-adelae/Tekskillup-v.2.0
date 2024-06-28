@@ -15,11 +15,7 @@ import { getUserById } from "@/lib/actions/user.actions";
 export default async function Home() {
 	const { userId } = auth();
 
-	// console.log("userId", userId);
-
 	const userInfo = await getUserById(userId!);
-
-	// console.log("userInfo", userInfo);
 
 	return (
 		<>
@@ -32,7 +28,7 @@ export default async function Home() {
 			<Benefits />
 			<WhyChooseUs />
 			<TopCategories />
-			<FeaturedCourses />
+			{/* <FeaturedCourses /> */}
 			<ScrollingCompanies />
 			<Testimonials />
 			<FAQs />

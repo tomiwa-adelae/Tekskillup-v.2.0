@@ -27,7 +27,7 @@ import {
 import { format } from "date-fns";
 import { cn, formatDate } from "@/lib/utils";
 import { useState } from "react";
-import { updateCourse } from "@/lib/actions/ourcourse.actions";
+import { updateCourse } from "@/lib/actions/course.actions";
 
 const CourseWeekdaysDate = ({
 	initialValue,

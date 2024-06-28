@@ -5,8 +5,8 @@ interface ILesson {
 	content?: string;
 }
 
-// Define the OurCourse interface
-interface IOurCourse extends Document {
+// Define the Course interface
+interface ICourse extends Document {
 	user: Schema.Types.ObjectId;
 	category?: Schema.Types.ObjectId;
 	name: string;
@@ -23,8 +23,8 @@ interface IOurCourse extends Document {
 	updatedAt?: Date;
 }
 
-// Define the OurCourse schema
-const OurCourseSchema = new Schema<IOurCourse>(
+// Define the Course schema
+const CourseSchema = new Schema<ICourse>(
 	{
 		user: {
 			type: Schema.Types.ObjectId,
@@ -76,9 +76,8 @@ const OurCourseSchema = new Schema<IOurCourse>(
 	{ timestamps: true }
 );
 
-// Define the OurCourse model
-const OurCourse =
-	models.OurCourse || model<IOurCourse>("OurCourse", OurCourseSchema);
+// Define the Course model
+const Course = models.Course || model<ICourse>("Course", CourseSchema);
 
-export default OurCourse;
-export type { IOurCourse, ILesson };
+export default Course;
+export type { ICourse, ILesson };

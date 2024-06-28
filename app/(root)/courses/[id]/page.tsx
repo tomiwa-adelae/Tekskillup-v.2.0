@@ -4,7 +4,7 @@ import Description from "./_components/Description";
 import CourseContents from "./_components/CourseContents";
 import SuccessStats from "@/components/SuccessStats";
 import { ScrollingCompanies } from "@/components/ScrollingCompanies";
-import { getCourseById } from "@/lib/actions/ourcourse.actions";
+import { getCourseById } from "@/lib/actions/course.actions";
 import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.actions";
 

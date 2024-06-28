@@ -9,7 +9,7 @@ import Link from "next/link";
 import { MoveUpRight } from "lucide-react";
 import Image from "next/image";
 import { SparklesCore } from "@/components/ui/sparkles";
-import { applyForCourse } from "@/lib/actions/ourcourse.actions";
+import { applyForCourse } from "@/lib/actions/course.actions";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 

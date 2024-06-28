@@ -13,7 +13,7 @@ import Image from "next/image";
 import { courseContents } from "@/constants";
 import { MovingBorderButton } from "@/components/ui/moving-border";
 import { useRouter } from "next/navigation";
-import { applyForCourse } from "@/lib/actions/ourcourse.actions";
+import { applyForCourse } from "@/lib/actions/course.actions";
 
 const CourseContents = ({
 	lessons,

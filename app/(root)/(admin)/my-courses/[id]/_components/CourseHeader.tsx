@@ -11,7 +11,7 @@ import {
 	publishCourse,
 	unPublishCourse,
 	updateCourse,
-} from "@/lib/actions/ourcourse.actions";
+} from "@/lib/actions/course.actions";
 import { useToast } from "@/components/ui/use-toast";
 
 const CourseHeader = ({

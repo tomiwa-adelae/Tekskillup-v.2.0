@@ -2,7 +2,7 @@ import { fetchAllUsers, getUserById } from "@/lib/actions/user.actions";
 import SubHeader from "../_components/SubHeader";
 import DashboardBoxes from "./_components/DashboardBoxes";
 import { auth } from "@clerk/nextjs";
-import { fetchAllCourses } from "@/lib/actions/ourcourse.actions";
+import { fetchAllCourses } from "@/lib/actions/course.actions";
 
 const page = async () => {
 	const { userId } = auth();
