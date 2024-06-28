@@ -50,8 +50,14 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
 			/>
 			<CourseContents
 				lessons={course.lessons}
+				name={course.name}
+				description={course.description}
 				course={course._id}
 				user={userInfo._id}
+				email={userInfo.email}
+				phoneNumber={userInfo.phoneNumber}
+				firstName={userInfo.firstName}
+				lastName={userInfo.lastName}
 			/>
 			<ScrollingCompanies />
 			<SuccessStats />

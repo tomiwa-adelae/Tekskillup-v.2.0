@@ -21,6 +21,7 @@ import { CourseLessonSchema } from "@/lib/validations";
 import { updateCourseLessons } from "@/lib/actions/course.actions";
 import { DeleteCourseLessonDialog } from "./DeleteCourseLessonDialog";
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/components/ui/use-toast";
 
 const CourseLessons = ({
 	initialLessons,
@@ -31,6 +32,8 @@ const CourseLessons = ({
 	courseId: string;
 	path: string;
 }) => {
+	const { toast } = useToast();
+
 	const [isEditing, setIsEditing] = useState(false);
 
 	const form = useForm<z.infer<typeof CourseLessonSchema>>({
@@ -50,7 +53,10 @@ const CourseLessons = ({
 
 			setIsEditing(!isEditing);
 		} catch (error) {
-			console.log(error);
+			toast({
+				variant: "destructive",
+				title: "Something went wrong",
+			});
 		}
 	}
 

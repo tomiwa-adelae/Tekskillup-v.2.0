@@ -23,8 +23,8 @@ export default function SparklesPreview() {
 					textStyles="text-4xl md:text-5xl lg:text-7xl text-green-400 "
 				/>
 				<motion.p variants={textVariant(1.2)} className="text-sm">
-					You have successfully registered for the course. Our team
-					would reach out to you very soon.
+					Your message has been successfuly sent. Our team would reach
+					out to you very soon.
 				</motion.p>
 
 				<motion.div variants={fadeIn("up", "tween", 0.3, 1)}>

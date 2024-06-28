@@ -16,7 +16,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { toast } from "@/components/ui/use-toast";
+import { toast, useToast } from "@/components/ui/use-toast";
 import { CourseWeekdaysDateSchema } from "@/lib/validations";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -38,6 +38,8 @@ const CourseWeekdaysDate = ({
 	courseId: string;
 	path: string;
 }) => {
+	const { toast } = useToast();
+
 	const [isEditing, setIsEditing] = useState(false);
 
 	const form = useForm<z.infer<typeof CourseWeekdaysDateSchema>>({
@@ -51,7 +53,10 @@ const CourseWeekdaysDate = ({
 
 			setIsEditing(!isEditing);
 		} catch (error) {
-			console.log(error);
+			toast({
+				variant: "destructive",
+				title: "Something went wrong",
+			});
 		}
 	}
 

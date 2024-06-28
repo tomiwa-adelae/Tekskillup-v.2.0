@@ -22,8 +22,13 @@ import { toast } from "@/components/ui/use-toast";
 import { Textarea } from "@/components/ui/textarea";
 import { ContactSchema } from "@/lib/validations";
 import { contactLinks } from "@/constants";
+import { sendMessage } from "@/lib/actions/contact.actions";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const ContactSection = () => {
+	const { toast } = useToast();
+	const router = useRouter();
 	const form = useForm<z.infer<typeof ContactSchema>>({
 		resolver: zodResolver(ContactSchema),
 		defaultValues: {
@@ -36,17 +41,25 @@ const ContactSection = () => {
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof ContactSchema>) {
-		toast({
-			title: "You submitted the following values:",
-			description: (
-				<pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
+	async function onSubmit(data: z.infer<typeof ContactSchema>) {
+		try {
+			await sendMessage({
+				firstName: data.firstName,
+				lastName: data.lastName,
+				email: data.email,
+				phoneNumber: data.phoneNumber,
+				message: data.message,
+				subject: data.subject,
+			});
+
+			router.push(`/contact/success`);
+			form.reset();
+		} catch (error) {
+			toast({
+				variant: "destructive",
+				title: "Something went wrong",
+			});
+		}
 	}
 
 	return (
@@ -172,8 +185,14 @@ const ContactSection = () => {
 									</FormItem>
 								)}
 							/>
-							<Button className="w-full" type="submit">
-								Submit
+							<Button
+								disabled={form.formState.isSubmitting}
+								className="w-full"
+								type="submit"
+							>
+								{form.formState.isSubmitting
+									? "Sending message..."
+									: "Send message"}
 							</Button>
 						</form>
 					</Form>
@@ -219,7 +238,7 @@ const ContactSection = () => {
 								className="flex items-center justify-start gap-4"
 							>
 								<div
-									className="p-2 rounded-lg border border-2"
+									className="p-2 rounded-lg border-2"
 									style={{ borderColor: color }}
 								>
 									<IconComponent />

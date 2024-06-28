@@ -19,7 +19,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
+import { toast, useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { createCourse } from "@/lib/actions/course.actions";
 import { useRouter } from "next/navigation";
@@ -27,6 +27,8 @@ import { CreateCourseSchema } from "@/lib/validations";
 
 const Box = ({ userId }: { userId: string }) => {
 	const router = useRouter();
+
+	const { toast } = useToast();
 
 	const form = useForm<z.infer<typeof CreateCourseSchema>>({
 		resolver: zodResolver(CreateCourseSchema),
@@ -43,7 +45,10 @@ const Box = ({ userId }: { userId: string }) => {
 				router.push(`/my-courses/${newCourse._id}`);
 			}
 		} catch (error) {
-			console.log(error);
+			toast({
+				variant: "destructive",
+				title: "Something went wrong",
+			});
 		}
 	}
 

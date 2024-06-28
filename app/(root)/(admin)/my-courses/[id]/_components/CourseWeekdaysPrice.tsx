@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { CourseWeekdaysPriceSchema } from "@/lib/validations";
 import { updateCourse } from "@/lib/actions/course.actions";
 import { formatToNaira } from "@/lib/utils";
+import { useToast } from "@/components/ui/use-toast";
 
 const CourseWeekdaysPrice = ({
 	initialValue,
@@ -30,6 +31,8 @@ const CourseWeekdaysPrice = ({
 	courseId: string;
 	path: string;
 }) => {
+	const { toast } = useToast();
+
 	const [isEditing, setIsEditing] = useState(false);
 
 	const form = useForm<z.infer<typeof CourseWeekdaysPriceSchema>>({
@@ -45,7 +48,10 @@ const CourseWeekdaysPrice = ({
 
 			setIsEditing(!isEditing);
 		} catch (error) {
-			console.log(error);
+			toast({
+				variant: "destructive",
+				title: "Something went wrong",
+			});
 		}
 	}
 

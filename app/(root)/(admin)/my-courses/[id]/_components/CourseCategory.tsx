@@ -49,6 +49,7 @@ import {
 	getAllCategories,
 } from "@/lib/actions/category.actions";
 import CourseDropdown from "./CourseDropdown";
+import { useToast } from "@/components/ui/use-toast";
 
 const CourseCategory = ({
 	initialValue,
@@ -59,9 +60,9 @@ const CourseCategory = ({
 	courseId: string;
 	path: string;
 }) => {
-	const [isEditing, setIsEditing] = useState(false);
+	const { toast } = useToast();
 
-	console.log(initialValue);
+	const [isEditing, setIsEditing] = useState(false);
 
 	const [newCategory, setNewCategory] = useState("");
 	const [categories, setCategories] = useState<ICategory[]>([]);
@@ -96,7 +97,10 @@ const CourseCategory = ({
 
 			setIsEditing(!isEditing);
 		} catch (error) {
-			console.log(error);
+			toast({
+				variant: "destructive",
+				title: "Something went wrong",
+			});
 		}
 	}
 
@@ -151,101 +155,6 @@ const CourseCategory = ({
 									render={({ field }) => (
 										<FormItem>
 											<FormControl>
-												{/* <Select
-													onValueChange={
-														field.onChange
-													}
-													defaultValue={initialValue}
-												>
-													<SelectTrigger>
-														<SelectValue placeholder="Select a category" />
-													</SelectTrigger>
-													<SelectContent>
-														{categories.length !==
-															0 &&
-															categories.map(
-																(
-																	category,
-																	index
-																) => (
-																	<SelectItem
-																		key={
-																			index
-																		}
-																		value={
-																			category?._id!
-																		}
-																	>
-																		{
-																			category?.name
-																		}
-																	</SelectItem>
-																)
-															)}
-														{categories.length ===
-															0 && (
-															<p className="text-xs italic text-center p-4">
-																No categories
-																yet
-															</p>
-														)}
-
-														<div className="mt-4 w-full">
-															<AlertDialog>
-																<AlertDialogTrigger className="w-full">
-																	<div className="p-4 text-center flex items-center justify-center font-bold uppercase text-xs hover:bg-slate-200 rounded">
-																		<Plus className="mr-2 w-4 h-4" />
-																		Add new
-																		category
-																	</div>
-																</AlertDialogTrigger>
-																<AlertDialogContent>
-																	<AlertDialogHeader>
-																		<AlertDialogTitle>
-																			New
-																			category
-																		</AlertDialogTitle>
-																		<AlertDialogDescription>
-																			<Input
-																				type="text"
-																				placeholder="Category name..."
-																				onChange={(
-																					e
-																				) => {
-																					setNewCategory(
-																						e
-																							.target
-																							.value
-																					);
-																				}}
-																			/>
-																		</AlertDialogDescription>
-																	</AlertDialogHeader>
-																	<AlertDialogFooter>
-																		<AlertDialogCancel>
-																			Cancel
-																		</AlertDialogCancel>
-																		<AlertDialogAction
-																			onClick={() =>
-																				startTransition(
-																					handleAddCategory
-																				)
-																			}
-																		>
-																			Add
-																		</AlertDialogAction>
-																	</AlertDialogFooter>
-																</AlertDialogContent>
-															</AlertDialog>
-														</div>
-													</SelectContent>
-												</Select> */}
-												{/* <Dropdown
-													onChangeHandler={
-														field.onChange
-													}
-													value={field.value}
-												/> */}
 												<CourseDropdown
 													onChangeHandler={
 														field.onChange

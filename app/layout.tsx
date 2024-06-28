@@ -22,7 +22,7 @@ export default function RootLayout({
 	return (
 		<ClerkProvider>
 			<html lang="en">
-				<body className={montserrat.className}>
+				<body className={`${montserrat.className} scrollbar-thin`}>
 					{children}
 					<Toaster />
 				</body>

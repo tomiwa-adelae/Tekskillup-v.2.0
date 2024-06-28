@@ -24,7 +24,7 @@ const WhatIsTekskillup = () => {
 				className="flex-1"
 				variants={slideIn("left", "tween", 0.2, 1)}
 			>
-				{/* <Lottie animationData={animationData} /> */}
+				<Lottie animationData={animationData} />
 			</motion.div>
 			<div className="flex-1">
 				<TypingSubText

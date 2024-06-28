@@ -38,21 +38,18 @@ export function AdminMobileSideBar() {
 											pathname === route ||
 											pathname.startsWith(`${route}/`);
 										return (
-											<>
-												<SheetClose asChild key={index}>
-													<Link
-														href={route}
-														className={`${
-															isActive
-																? "bg-green-400 text-white font-bold"
-																: "text-gray-600"
-														} transition ease-out p-4 w-auto text-xs uppercase h-auto rounded-lg hover:bg-green-400`}
-													>
-														{label}
-													</Link>
-												</SheetClose>
-												<Separator />
-											</>
+											<SheetClose asChild key={index}>
+												<Link
+													href={route}
+													className={`${
+														isActive
+															? "bg-green-400 text-white font-bold rounded-lg"
+															: "text-gray-600"
+													} transition ease-out p-4 w-auto text-xs uppercase h-auto hover:bg-green-400 hover:rounded-lg border-b border-gray-300`}
+												>
+													{label}
+												</Link>
+											</SheetClose>
 										);
 									}
 								)}

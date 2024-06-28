@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { CreateCourseSchema } from "@/lib/validations";
 import { updateCourse } from "@/lib/actions/course.actions";
+import { useToast } from "@/components/ui/use-toast";
 
 const CourseName = ({
 	initialValue,
@@ -29,6 +30,8 @@ const CourseName = ({
 	courseId: string;
 	path: string;
 }) => {
+	const { toast } = useToast();
+
 	const [isEditing, setIsEditing] = useState(false);
 
 	const form = useForm<z.infer<typeof CreateCourseSchema>>({
@@ -44,7 +47,10 @@ const CourseName = ({
 
 			setIsEditing(!isEditing);
 		} catch (error) {
-			console.log(error);
+			toast({
+				variant: "destructive",
+				title: "Something went wrong",
+			});
 		}
 	}
 

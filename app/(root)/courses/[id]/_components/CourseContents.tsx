@@ -17,16 +17,37 @@ import { applyForCourse } from "@/lib/actions/course.actions";
 
 const CourseContents = ({
 	lessons,
+	name,
 	user,
 	course,
+	firstName,
+	lastName,
+	email,
+	phoneNumber,
+	description,
 }: {
 	lessons: { content: string }[];
+	name: string;
+	description: string;
 	user: string;
 	course: string;
+	firstName: string;
+	lastName: string;
+	email: string;
+	phoneNumber: string;
 }) => {
 	const router = useRouter();
 	const handleApply = async () => {
-		await applyForCourse({ user, course });
+		await applyForCourse({
+			firstName,
+			lastName,
+			email,
+			description,
+			phoneNumber,
+			user,
+			course,
+			name,
+		});
 		router.push(`/courses/${course}/success`);
 	};
 

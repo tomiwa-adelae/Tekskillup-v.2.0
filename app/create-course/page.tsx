@@ -14,7 +14,7 @@ const page = async () => {
 				<Box userId={userId!} />
 			</div>
 			<div className="w-full absolute inset-0 h-screen">
-				{/* <SparklesCore
+				<SparklesCore
 					id="tsparticlesfullpage"
 					background="transparent"
 					minSize={0.6}
@@ -22,12 +22,12 @@ const page = async () => {
 					particleDensity={100}
 					className="w-full h-full"
 					particleColor="#104F19"
-				/> */}
+				/>
 			</div>
-			{/* <Spotlight
+			<Spotlight
 				className="-top-5 left-0 md:left-30 md:-top-10"
 				fill="green"
-			/> */}
+			/>
 		</div>
 	);
 };

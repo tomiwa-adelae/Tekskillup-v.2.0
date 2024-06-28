@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Separator } from "./ui/separator";
+import { SignedOut } from "@clerk/nextjs";
 
 export function MobileNavbar() {
 	const pathname = usePathname();
@@ -44,7 +45,7 @@ export function MobileNavbar() {
 												className={`${
 													isActive &&
 													"text-primary font-extrabold"
-												} text-xs hover:underline hover:text-primary cursor-pointer`}
+												} text-xs hover:underline hover:text-primary cursor-pointer border-b border-gray-300 py-4`}
 											>
 												{label}
 											</Link>
@@ -52,17 +53,19 @@ export function MobileNavbar() {
 									);
 								})}
 							</ul>
-							<div className="flex flex-col mt-6 gap-4 w-full">
-								<Button variant={"ghost"} asChild>
-									<Link href="/sign-in">Login</Link>
-								</Button>
-								<Button asChild>
-									<Link href="/sign-up">
-										Get started{" "}
-										<MoveUpRight className="w-4 h-4 ml-2" />
-									</Link>
-								</Button>
-							</div>
+							<SignedOut>
+								<div className="flex flex-col mt-6 gap-4 w-full">
+									<Button variant={"ghost"} asChild>
+										<Link href="/sign-in">Login</Link>
+									</Button>
+									<Button asChild>
+										<Link href="/sign-up">
+											Get started{" "}
+											<MoveUpRight className="w-4 h-4 ml-2" />
+										</Link>
+									</Button>
+								</div>
+							</SignedOut>
 						</div>
 					</SheetClose>
 				</SheetContent>
