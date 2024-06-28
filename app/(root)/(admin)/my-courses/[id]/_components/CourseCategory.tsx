@@ -48,7 +48,6 @@ import {
 	createCategory,
 	getAllCategories,
 } from "@/lib/actions/category.actions";
-import Dropdown from "./Dropdown";
 
 const CourseCategory = ({
 	initialValue,
