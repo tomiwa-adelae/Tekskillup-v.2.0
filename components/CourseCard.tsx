@@ -2,34 +2,48 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { formatToNaira } from "@/lib/utils";
+import { Card } from "./ui/card";
 
 type CourseProps = {
-	image: string;
-	title: string;
+	picture: string;
+	name: string;
+	description: string;
+	weekendPrice: string;
+	weekdaysPrice: string;
 	id: string;
-	price: number;
+	category: string;
+	onlinePrice: number | string;
 };
 
-const CourseCard = ({ image, title, id, price }: CourseProps) => {
+const CourseCard = ({
+	picture,
+	name,
+	id,
+	onlinePrice,
+	description,
+	weekendPrice,
+	weekdaysPrice,
+	category,
+}: CourseProps) => {
 	return (
-		<div className="flex flex-col justify-center gap-3 border border-gray-300 p-2 rounded-lg">
-			<Image
-				src={image}
-				width={1000}
-				height={1000}
-				alt={title}
-				className="aspect-video rounded-lg"
-			/>
-			<h4 className="font-bold text-base">{title}</h4>
-			<p className="text-sm">{price}</p>
-			<div className="w-auto text-right">
-				<Button size={"sm"} asChild>
-					<Link href={`/courses/${id}`}>
-						<ArrowRight className="w-4 h-4" />
-					</Link>
-				</Button>
-			</div>
-		</div>
+		<Link href={`/courses/${id}`}>
+			<Card className="text-center py-6 px-4 space-y-4">
+				<p className="text-sm text-green-400">{category}</p>
+				<h2 className="text-xl font-bold">{name}</h2>
+				<Image
+					src={picture}
+					alt={name}
+					width={1000}
+					height={1000}
+					className="aspect-video object-cover rounded-lg"
+				/>
+				<p className="text-xs text-left line-clamp-4">{description}</p>
+				<h3 className="text-base font-semibold">
+					{formatToNaira(onlinePrice)}
+				</h3>
+			</Card>
+		</Link>
 	);
 };
 

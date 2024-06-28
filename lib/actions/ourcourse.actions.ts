@@ -6,6 +6,7 @@ import OurCourse from "../database/models/ourcourse.model";
 import { revalidatePath } from "next/cache";
 import { FetchAllCoursesParams } from "@/types";
 import { getAllCategories, getCategoryByName } from "./category.actions";
+import RegisteredCourse from "../database/models/registered.model";
 
 export async function fetchAllCourses({
 	query,
@@ -58,12 +59,63 @@ export async function fetchAllCourses({
 	}
 }
 
+export async function fetchPublishedCourses({
+	query,
+	limit = 10,
+	page,
+	category,
+}: FetchAllCoursesParams) {
+	try {
+		await connectToDatabase();
+
+		const titleCondition = query
+			? {
+					$or: [
+						{
+							name: { $regex: query, $options: "i" },
+						},
+						{
+							description: { $regex: query, $options: "i" },
+						},
+					],
+			  }
+			: {};
+		const categoryCondition = category
+			? await getCategoryByName(category)
+			: null;
+
+		const condition = {
+			$and: [
+				titleCondition,
+				categoryCondition ? { category: categoryCondition._id } : {},
+				{ isPublished: true },
+			],
+		};
+
+		const skipAmount = (Number(page) - 1) * limit;
+
+		const courses = await OurCourse.find(condition)
+			.populate("category")
+			.sort({ createdAt: "desc" })
+			.skip(skipAmount)
+			.limit(limit);
+
+		const courseCount = await OurCourse.countDocuments(condition);
+
+		return {
+			data: JSON.parse(JSON.stringify(courses)),
+			totalPages: Math.ceil(courseCount / limit),
+		};
+	} catch (error) {
+		handleError(error);
+	}
+}
+
 export async function getCourseById(id: string) {
 	try {
 		await connectToDatabase();
 
 		const course = await OurCourse.findById(id).populate("category");
-		console.log(course);
 
 		return JSON.parse(JSON.stringify(course));
 	} catch (error) {
@@ -224,6 +276,35 @@ export async function deleteCourseLesson({
 
 		await course.save();
 		revalidatePath(path);
+	} catch (error) {
+		handleError(error);
+	}
+}
+
+export async function applyForCourse({
+	user,
+	course,
+}: {
+	user: string;
+	course: string;
+}) {
+	try {
+		await connectToDatabase();
+
+		await RegisteredCourse.create({ user, course });
+	} catch (error) {
+		handleError(error);
+	}
+}
+
+export async function fetchAllRegisteredCourses() {
+	try {
+		await connectToDatabase();
+
+		const courses = await RegisteredCourse.find().populate("user").sort({
+			createdAt: "desc",
+		});
+		return JSON.parse(JSON.stringify(courses));
 	} catch (error) {
 		handleError(error);
 	}

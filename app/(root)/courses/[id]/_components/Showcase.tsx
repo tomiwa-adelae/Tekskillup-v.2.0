@@ -9,8 +9,27 @@ import Link from "next/link";
 import { MoveUpRight } from "lucide-react";
 import Image from "next/image";
 import { SparklesCore } from "@/components/ui/sparkles";
+import { applyForCourse } from "@/lib/actions/ourcourse.actions";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
-const Showcase = () => {
+const Showcase = ({
+	name,
+	description,
+	user,
+	course,
+}: {
+	name: string;
+	description: string;
+	user: string;
+	course: string;
+}) => {
+	const router = useRouter();
+	const handleApply = async () => {
+		await applyForCourse({ user, course });
+		router.push(`/courses/${course}/success`);
+	};
+
 	return (
 		<motion.div
 			// @ts-ignore
@@ -39,23 +58,21 @@ const Showcase = () => {
 				variants={textVariant(1.1)}
 				className="text-3xl leading-relaxed md:text-4xl lg:text-5xl md:leading-snug lg:leading-snug font-bold"
 			>
-				Our available online courses, <br /> easily accessible
+				{name}
 			</motion.h1>
 			<motion.p
 				variants={textVariant(1.2)}
 				className="text-xs mt-2 w-3/4 lg:text-sm"
 			>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				Adipisci facilis modi soluta velit illum dolorem eos
-				repudiandae? Tempore ipsa, nihil debitis quis impedit alias
-				labore, doloremque, illo
+				{description}
 			</motion.p>
 			<motion.div variants={slideIn("left", "tween", 0.2, 1)}>
-				<Button className="mt-10 bg-white text-green-400" asChild>
-					<Link href="/sign-up">
-						Click to apply
-						<MoveUpRight className="w-4 h-4 ml-2" />
-					</Link>
+				<Button
+					onClick={handleApply}
+					className="mt-10 bg-white text-green-400"
+				>
+					Click to apply
+					<MoveUpRight className="w-4 h-4 ml-2" />
 				</Button>
 			</motion.div>
 			{/* <BackgroundBeams /> */}

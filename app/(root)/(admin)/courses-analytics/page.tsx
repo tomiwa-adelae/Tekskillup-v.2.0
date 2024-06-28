@@ -1,8 +1,13 @@
 import React from "react";
 import SubHeader from "../_components/SubHeader";
 import Charts from "./_components/Charts";
+import { fetchAllRegisteredCourses } from "@/lib/actions/ourcourse.actions";
 
-const page = () => {
+const page = async () => {
+	const courses = await fetchAllRegisteredCourses();
+
+	console.log(courses);
+
 	return (
 		<div>
 			<SubHeader

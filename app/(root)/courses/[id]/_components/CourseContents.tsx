@@ -12,8 +12,24 @@ import { TypingSubText } from "@/components/CustomTexts";
 import Image from "next/image";
 import { courseContents } from "@/constants";
 import { MovingBorderButton } from "@/components/ui/moving-border";
+import { useRouter } from "next/navigation";
+import { applyForCourse } from "@/lib/actions/ourcourse.actions";
 
-const CourseContents = () => {
+const CourseContents = ({
+	lessons,
+	user,
+	course,
+}: {
+	lessons: { content: string }[];
+	user: string;
+	course: string;
+}) => {
+	const router = useRouter();
+	const handleApply = async () => {
+		await applyForCourse({ user, course });
+		router.push(`/courses/${courseId}/success`);
+	};
+
 	return (
 		<motion.div
 			// @ts-ignore
@@ -34,18 +50,21 @@ const CourseContents = () => {
 				The following are what you will learn in this course
 			</motion.p>
 			<div className="flex flex-col gap-2 mt-8">
-				{courseContents.map(({ content }, index) => (
+				{lessons.map((lesson, index) => (
 					<motion.p
 						variants={fadeIn("up", "spring", index * 0.5, 0.75)}
 						key={index}
 						className="text-xs p-4 rounded-lg bg-gray-100"
 					>
-						{content}
+						{lesson.content}
 					</motion.p>
 				))}
 			</div>
 			<motion.div variants={zoomIn(0.2, 1)} className="mt-8 text-center">
-				<MovingBorderButton className="bg-white uppercase font-bold text-green-400 dark:bg-slate-900 dark:text-white border-neutral-200 dark:border-slate-800 text-xs">
+				<MovingBorderButton
+					onClick={handleApply}
+					className="bg-white uppercase font-bold text-green-400 dark:bg-slate-900 dark:text-white border-neutral-200 dark:border-slate-800 text-xs"
+				>
 					Click to apply
 				</MovingBorderButton>
 			</motion.div>

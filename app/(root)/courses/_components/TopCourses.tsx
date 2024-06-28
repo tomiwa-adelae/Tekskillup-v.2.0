@@ -2,7 +2,35 @@ import { TypingSubText } from "@/components/CustomTexts";
 import { topCourses } from "@/constants";
 import CourseCard from "@/components/CourseCard";
 
-const TopCourses = () => {
+import {
+	IconArrowWaveRightUp,
+	IconBoxAlignRightFilled,
+	IconBoxAlignTopLeft,
+	IconClipboardCopy,
+	IconFileBroken,
+	IconSignature,
+	IconTableColumn,
+} from "@tabler/icons-react";
+import Pagination from "@/components/Pagination";
+
+const TopCourses = ({
+	courses,
+	totalPages,
+	page,
+}: {
+	courses: {
+		_id: string;
+		name: string;
+		description: string;
+		onlinePrice: string;
+		picture: string;
+		weekendPrice: string;
+		weekdaysPrice: string;
+		category: { name: string };
+	}[];
+	totalPages: number;
+	page: string | number;
+}) => {
 	return (
 		<div className="container py-12">
 			<TypingSubText
@@ -16,18 +44,39 @@ const TopCourses = () => {
 				veritatis sunt.
 			</p>
 			<div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-				{topCourses.map(({ price, title, image, id }, index) => {
-					return (
-						<CourseCard
-							price={price}
-							image={image}
-							id={id}
-							title={title}
-							key={index}
-						/>
-					);
-				})}
+				{courses.map(
+					(
+						{
+							onlinePrice,
+							name,
+							picture,
+							_id,
+							description,
+							weekendPrice,
+							weekdaysPrice,
+							category,
+						},
+						index
+					) => {
+						return (
+							<CourseCard
+								onlinePrice={onlinePrice}
+								picture={picture}
+								id={_id}
+								name={name}
+								description={description}
+								weekendPrice={weekendPrice}
+								weekdaysPrice={weekdaysPrice}
+								category={category?.name}
+								key={index}
+							/>
+						);
+					}
+				)}
 			</div>
+			{totalPages !== undefined && totalPages > 1 && (
+				<Pagination page={page} totalPages={totalPages} />
+			)}
 		</div>
 	);
 };

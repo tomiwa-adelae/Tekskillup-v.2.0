@@ -41,7 +41,9 @@ const Header = () => {
 				<nav className="hidden lg:block">
 					<ul className="flex text-xs items-center justify-center gap-4 lg:gap-6 uppercase">
 						{headerLinks.map((link) => {
-							const isActive = pathname === link.route;
+							const isActive =
+								pathname === link.route ||
+								pathname.startsWith(`${link.route}/`);
 							return (
 								<li
 									className={`${
