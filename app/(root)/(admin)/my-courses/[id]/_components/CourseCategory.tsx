@@ -48,6 +48,7 @@ import {
 	createCategory,
 	getAllCategories,
 } from "@/lib/actions/category.actions";
+import Dropdown from "./Dropdown";
 
 const CourseCategory = ({
 	initialValue,
@@ -154,7 +155,7 @@ const CourseCategory = ({
 									render={({ field }) => (
 										<FormItem>
 											<FormControl>
-												<Select
+												{/* <Select
 													onValueChange={
 														field.onChange
 													}
@@ -164,7 +165,7 @@ const CourseCategory = ({
 														<SelectValue placeholder="Select a category" />
 													</SelectTrigger>
 													<SelectContent>
-														{/* {categories.length !==
+														{categories.length !==
 															0 &&
 															categories.map(
 																(
@@ -184,7 +185,7 @@ const CourseCategory = ({
 																		}
 																	</SelectItem>
 																)
-															)} */}
+															)}
 														{categories.length ===
 															0 && (
 															<p className="text-xs italic text-center p-4">
@@ -242,7 +243,13 @@ const CourseCategory = ({
 															</AlertDialog>
 														</div>
 													</SelectContent>
-												</Select>
+												</Select> */}
+												{/* <Dropdown
+													onChangeHandler={
+														field.onChange
+													}
+													value={field.value}
+												/> */}
 											</FormControl>
 											<FormMessage />
 										</FormItem>
