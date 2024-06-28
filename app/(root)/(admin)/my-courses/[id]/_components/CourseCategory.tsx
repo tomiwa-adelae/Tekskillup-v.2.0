@@ -176,11 +176,11 @@ const CourseCategory = ({
 																			index
 																		}
 																		value={
-																			category._id!
+																			category?._id!
 																		}
 																	>
 																		{
-																			category.name
+																			category?.name
 																		}
 																	</SelectItem>
 																)
