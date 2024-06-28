@@ -105,7 +105,10 @@ const CourseHeader = ({
 					className="w-full md:w-auto"
 					variants={fadeIn("left", "spring", 0.75, 0.75)}
 				>
-					<DeleteCourseAlertModal />
+					<DeleteCourseAlertModal
+						courseId={courseId}
+						path={"/my-courses"}
+					/>
 				</motion.div>
 			</div>
 		</motion.div>

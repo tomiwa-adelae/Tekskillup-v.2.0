@@ -11,11 +11,19 @@ import SuccessStats from "@/components/SuccessStats";
 import FAQs from "@/components/FAQs";
 import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.actions";
+import { fetchPublishedCourses } from "@/lib/actions/course.actions";
 
 export default async function Home() {
 	const { userId } = auth();
 
 	const userInfo = await getUserById(userId!);
+
+	const courses = await fetchPublishedCourses({
+		query: "",
+		category: "",
+		page: 1,
+		limit: 5,
+	});
 
 	return (
 		<>
@@ -28,7 +36,7 @@ export default async function Home() {
 			<Benefits />
 			<WhyChooseUs />
 			<TopCategories />
-			{/* <FeaturedCourses /> */}
+			<FeaturedCourses courses={courses?.data} />
 			<ScrollingCompanies />
 			<Testimonials />
 			<FAQs />

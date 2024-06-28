@@ -9,9 +9,26 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { deleteCourse } from "@/lib/actions/course.actions";
 import { Trash } from "lucide-react";
+import { startTransition } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
-export function DeleteCourseAlertModal() {
+export function DeleteCourseAlertModal({
+	id,
+	path,
+}: {
+	path: string;
+	id: string;
+}) {
+	const { toast } = useToast();
+	const handleDeleteCourse = async () => {
+		await deleteCourse({ courseId: id, path });
+		toast({
+			title: "Successfully deleted",
+		});
+	};
+
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
@@ -33,7 +50,11 @@ export function DeleteCourseAlertModal() {
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction>Continue</AlertDialogAction>
+					<AlertDialogAction
+						onClick={() => startTransition(handleDeleteCourse)}
+					>
+						Continue
+					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

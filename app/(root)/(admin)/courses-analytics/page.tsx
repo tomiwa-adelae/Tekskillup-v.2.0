@@ -6,15 +6,13 @@ import { fetchAllRegisteredCourses } from "@/lib/actions/course.actions";
 const page = async () => {
 	const courses = await fetchAllRegisteredCourses();
 
-	console.log(courses);
-
 	return (
 		<div>
 			<SubHeader
 				title="Courses Analytics"
 				description="Access & manage the data charts of the courses people have registered for on your platform from here"
 			/>
-			<Charts />
+			<Charts courses={courses} />
 		</div>
 	);
 };

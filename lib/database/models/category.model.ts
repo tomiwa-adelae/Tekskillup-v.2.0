@@ -3,6 +3,7 @@ import { Document, Schema, model, models } from "mongoose";
 // Define the Category interface
 interface ICategory extends Document {
 	name: string;
+	_id: string;
 }
 
 // Define the Category schema

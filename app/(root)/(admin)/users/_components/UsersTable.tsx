@@ -58,12 +58,14 @@ export function UsersTable({ users }: { users: any }) {
 										{index + 1}.
 									</TableCell>
 									<TableCell>
-										{user.firstName} {user.lastName}
+										<p className="line-clamp-1">
+											{user.firstName} {user.lastName}
+										</p>
 									</TableCell>
 									<TableCell>
 										<a
 											target="_blank"
-											className="hover:underline hover:text-green-400"
+											className="hover:underline line-clamp-1 hover:text-green-400"
 											href={`mailto:${user.email}`}
 										>
 											{user.email}
@@ -94,7 +96,10 @@ export function UsersTable({ users }: { users: any }) {
 													</DropdownMenuItem>
 												</a>
 												<DropdownMenuSeparator />
-												<DeleteUserAlertModal id={user._id} path={'/users'} />
+												<DeleteUserAlertModal
+													id={user._id}
+													path={"/users"}
+												/>
 											</DropdownMenuContent>
 										</DropdownMenu>
 									</TableCell>

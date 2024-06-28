@@ -27,6 +27,7 @@ const TopCourses = ({
 		weekendPrice: string;
 		weekdaysPrice: string;
 		category: { name: string };
+		students: { user: string }[];
 	}[];
 	totalPages: number;
 	page: string | number;
@@ -55,6 +56,7 @@ const TopCourses = ({
 							weekendPrice,
 							weekdaysPrice,
 							category,
+							students,
 						},
 						index
 					) => {
@@ -69,6 +71,7 @@ const TopCourses = ({
 								weekdaysPrice={weekdaysPrice}
 								category={category?.name}
 								key={index}
+								students={students.length}
 							/>
 						);
 					}

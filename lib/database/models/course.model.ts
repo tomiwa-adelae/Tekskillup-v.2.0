@@ -5,6 +5,11 @@ interface ILesson {
 	content?: string;
 }
 
+// Define the student interface
+interface IStudent {
+	user?: Schema.Types.ObjectId;
+}
+
 // Define the Course interface
 interface ICourse extends Document {
 	user: Schema.Types.ObjectId;
@@ -19,6 +24,7 @@ interface ICourse extends Document {
 	weekdaysDate?: string;
 	isPublished: boolean;
 	lessons: ILesson[];
+	students: IStudent[];
 	createdAt?: Date;
 	updatedAt?: Date;
 }
@@ -69,6 +75,14 @@ const CourseSchema = new Schema<ICourse>(
 			{
 				content: {
 					type: String,
+				},
+			},
+		],
+		students: [
+			{
+				user: {
+					type: Schema.Types.ObjectId,
+					ref: "User",
 				},
 			},
 		],

@@ -5,7 +5,21 @@ import { TypingSubText } from "@/components/CustomTexts";
 import { featuredCourses } from "@/constants";
 import CourseCard from "@/components/CourseCard";
 
-const FeaturedCourses = () => {
+const FeaturedCourses = ({
+	courses,
+}: {
+	courses: {
+		_id: string;
+		name: string;
+		description: string;
+		onlinePrice: string;
+		picture: string;
+		weekendPrice: string;
+		weekdaysPrice: string;
+		category: { name: string };
+		students: { user: string }[];
+	}[];
+}) => {
 	return (
 		<div className="container py-12">
 			<TypingSubText
@@ -18,19 +32,39 @@ const FeaturedCourses = () => {
 				consequuntur laborum. Non magnam repellendus doloremque
 				veritatis sunt.
 			</p>
-			{/* <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-				{featuredCourses.map(({ price, title, image, id }, index) => {
-					return (
-						<CourseCard
-							price={price}
-							image={image}
-							id={id}
-							title={title}
-							key={index}
-						/>
-					);
-				})}
-			</div> */}
+			<div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+				{courses.map(
+					(
+						{
+							onlinePrice,
+							name,
+							picture,
+							_id,
+							description,
+							weekendPrice,
+							weekdaysPrice,
+							category,
+							students,
+						},
+						index
+					) => {
+						return (
+							<CourseCard
+								onlinePrice={onlinePrice}
+								picture={picture}
+								id={_id}
+								name={name}
+								description={description}
+								weekendPrice={weekendPrice}
+								weekdaysPrice={weekdaysPrice}
+								category={category?.name}
+								key={index}
+								students={students.length}
+							/>
+						);
+					}
+				)}
+			</div>
 		</div>
 	);
 };

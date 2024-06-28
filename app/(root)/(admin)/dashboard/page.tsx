@@ -22,8 +22,6 @@ const page = async () => {
 		limit: 100000,
 	});
 
-	console.log("courses", courses);
-
 	return (
 		<div>
 			<SubHeader
@@ -34,6 +32,7 @@ const page = async () => {
 				courses={courses?.data.length}
 				users={users?.data.length}
 				userCharts={users?.data}
+				courseCharts={courses?.data}
 			/>
 		</div>
 	);

@@ -11,11 +11,11 @@ import { usePathname } from "next/navigation";
 
 import { motion } from "framer-motion";
 import { navVariants } from "@/lib/motion";
-import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
-import { useEffect } from "react";
+import { SignedOut, SignedIn, UserButton, useAuth } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
 import { getUserById } from "@/lib/actions/user.actions";
 
-const Header = () => {
+const Header = ({ isAdmin }: { isAdmin: boolean }) => {
 	const pathname = usePathname();
 
 	return (
@@ -27,7 +27,7 @@ const Header = () => {
 		>
 			<div className="container flex items-center justify-between">
 				<div className="flex items-center justify-start gap-3">
-					{/* <AdminMobileSideBar /> */}
+					{isAdmin && <AdminMobileSideBar />}
 					<Link href="/">
 						<Image
 							src={"/assets/images/tekskillup-logo.png"}
@@ -56,25 +56,34 @@ const Header = () => {
 								</li>
 							);
 						})}
+						{isAdmin && pathname !== "/dashboard" && (
+							<li
+								className={`hover:underline hover:text-primary cursor-pointer`}
+							>
+								<Link href="/dashboard">Dashboard</Link>
+							</li>
+						)}
 					</ul>
 				</nav>
-				<SignedIn>
-					<UserButton afterSignOutUrl="/" />
-				</SignedIn>
-				<SignedOut>
-					<div className="hidden md:flex items-center justify-center gap-4">
-						<Button variant={"ghost"} asChild>
-							<Link href="/sign-in">Login</Link>
-						</Button>
-						<Button asChild>
-							<Link href="/sign-up">
-								Get started{" "}
-								<MoveUpRight className="w-4 h-4 ml-2" />
-							</Link>
-						</Button>
-					</div>
-				</SignedOut>
-				<MobileNavbar />
+				<div className="flex items-center justify-center gap-6">
+					<SignedIn>
+						<UserButton afterSignOutUrl="/" />
+					</SignedIn>
+					<SignedOut>
+						<div className="hidden md:flex items-center justify-center gap-4">
+							<Button variant={"ghost"} asChild>
+								<Link href="/sign-in">Login</Link>
+							</Button>
+							<Button asChild>
+								<Link href="/sign-up">
+									Get started{" "}
+									<MoveUpRight className="w-4 h-4 ml-2" />
+								</Link>
+							</Button>
+						</div>
+					</SignedOut>
+					<MobileNavbar />
+				</div>
 			</div>
 		</motion.header>
 	);

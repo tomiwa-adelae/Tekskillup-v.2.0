@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -10,9 +12,31 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { deleteCourse } from "@/lib/actions/course.actions";
 import { Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { startTransition } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
-export function DeleteCourseAlertModal() {
+export function DeleteCourseAlertModal({
+	courseId,
+	path,
+}: {
+	path: string;
+	courseId: string;
+}) {
+	const { toast } = useToast();
+
+	const router = useRouter();
+
+	const handleDeleteCourse = async () => {
+		await deleteCourse({ courseId, path });
+		toast({
+			title: "Successfully deleted",
+		});
+		router.push("/my-courses");
+	};
+
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
@@ -34,7 +58,11 @@ export function DeleteCourseAlertModal() {
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction>Continue</AlertDialogAction>
+					<AlertDialogAction
+						onClick={() => startTransition(handleDeleteCourse)}
+					>
+						Continue
+					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

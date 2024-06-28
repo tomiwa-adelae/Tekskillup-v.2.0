@@ -33,8 +33,6 @@ const CourseLessons = ({
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 
-	console.log(initialLessons);
-
 	const form = useForm<z.infer<typeof CourseLessonSchema>>({
 		resolver: zodResolver(CourseLessonSchema),
 		defaultValues: {

@@ -15,10 +15,12 @@ const DashboardBoxes = ({
 	courses,
 	users,
 	userCharts,
+	courseCharts,
 }: {
 	courses: string;
 	users: string;
 	userCharts: string;
+	courseCharts: string;
 }) => {
 	return (
 		<motion.div
@@ -52,7 +54,7 @@ const DashboardBoxes = ({
 								{courses}
 							</h4>
 						</div>
-						<CoursesLineChart />
+						<CoursesLineChart courses={courseCharts} />
 					</Link>
 				</motion.div>
 				<motion.div

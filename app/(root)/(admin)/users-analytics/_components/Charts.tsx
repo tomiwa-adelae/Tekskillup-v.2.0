@@ -70,8 +70,6 @@ const Charts = ({
 		},
 	];
 
-	console.log(users);
-
 	// Extract dates and count occurrences
 	const dateCounts = users.reduce((acc: any, user: any) => {
 		const date = new Date(user.createdAt).toISOString().split("T")[0]; // Extract date part
@@ -89,14 +87,14 @@ const Charts = ({
 		<div className="mt-8">
 			<div>
 				<ResponsiveContainer width="100%" height={400}>
-					<LineChart width={300} height={100} data={chartData}>
+					{/* <LineChart width={300} height={100} data={chartData}>
 						<Line
 							type="monotone"
 							dataKey="Number"
 							stroke="#104F19"
 							strokeWidth={2}
 						/>
-					</LineChart>
+					</LineChart> */}
 					{/* <BarChart
 						data={chartData}
 						margin={{
@@ -123,7 +121,7 @@ const Charts = ({
 							radius={[4, 4, 0, 0]}
 						/>
 					</BarChart> */}
-					{/* <AreaChart
+					<AreaChart
 						width={500}
 						height={400}
 						data={chartData}
@@ -144,7 +142,7 @@ const Charts = ({
 							stroke="#104F19"
 							fill="#104F19"
 						/>
-					</AreaChart> */}
+					</AreaChart>
 				</ResponsiveContainer>
 			</div>
 		</div>

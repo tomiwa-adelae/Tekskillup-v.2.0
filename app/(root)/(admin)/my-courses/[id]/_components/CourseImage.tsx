@@ -28,7 +28,6 @@ const CourseImage = ({
 	const [imageData, setImageData] = useState("");
 
 	const handleSubmitImage = async (url: any) => {
-		console.log("files", url);
 		setImageData(url?.[0].url);
 		await updateCourse({ courseId, data: { picture: url?.[0].url }, path });
 

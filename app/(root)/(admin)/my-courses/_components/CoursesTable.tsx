@@ -68,18 +68,20 @@ export function CoursesTable({ courses }: { courses: any }) {
 									</TableCell>
 									<TableCell>
 										<Link
-											className="hover:underline hover:text-green-400"
+											className="hover:underline line-clamp-1 hover:text-green-400"
 											href={`/my-courses/${course._id}`}
 										>
 											{course.name}
 										</Link>
 									</TableCell>
 									<TableCell>
-										{course?.category?.name || (
-											<p className="italic">
-												No category
-											</p>
-										)}
+										<p className="line-clamp-1">
+											{course?.category?.name || (
+												<p className="italic ">
+													No category
+												</p>
+											)}
+										</p>
 									</TableCell>
 									<TableCell>
 										{course.onlinePrice !== undefined &&
@@ -119,16 +121,6 @@ export function CoursesTable({ courses }: { courses: any }) {
 												<Ellipsis className="cursor-pointer" />
 											</DropdownMenuTrigger>
 											<DropdownMenuContent>
-												<Link
-													href={`/my-courses/${course._id}`}
-												>
-													<DropdownMenuItem className="">
-														<Telescope className="mr-2 h-4 w-4" />
-														<span className="font-bold text-xs">
-															Visit
-														</span>
-													</DropdownMenuItem>
-												</Link>
 												<DropdownMenuSeparator />
 												<Link
 													href={`/my-courses/${course._id}`}
@@ -142,7 +134,10 @@ export function CoursesTable({ courses }: { courses: any }) {
 												</Link>
 												<DropdownMenuSeparator />
 
-												<DeleteCourseAlertModal />
+												<DeleteCourseAlertModal
+													id={course._id}
+													path={"/my-courses"}
+												/>
 											</DropdownMenuContent>
 										</DropdownMenu>
 									</TableCell>

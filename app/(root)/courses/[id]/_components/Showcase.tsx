@@ -15,18 +15,35 @@ import { useRouter } from "next/navigation";
 
 const Showcase = ({
 	name,
-	description,
 	user,
 	course,
+	firstName,
+	lastName,
+	email,
+	phoneNumber,
+	description,
 }: {
 	name: string;
 	description: string;
 	user: string;
 	course: string;
+	firstName: string;
+	lastName: string;
+	email: string;
+	phoneNumber: string;
 }) => {
 	const router = useRouter();
 	const handleApply = async () => {
-		await applyForCourse({ user, course });
+		await applyForCourse({
+			firstName,
+			lastName,
+			email,
+			description,
+			phoneNumber,
+			user,
+			course,
+			name,
+		});
 		router.push(`/courses/${course}/success`);
 	};
 
@@ -62,7 +79,7 @@ const Showcase = ({
 			</motion.h1>
 			<motion.p
 				variants={textVariant(1.2)}
-				className="text-xs mt-2 w-3/4 lg:text-sm"
+				className="text-xs mt-2 w-full lg:w-3/4 lg:text-sm"
 			>
 				{description}
 			</motion.p>

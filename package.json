@@ -37,6 +37,7 @@
 		"mongodb": "^6.7.0",
 		"mongoose": "^8.4.1",
 		"next": "14.2.4",
+		"node-mailjet": "^6.0.5",
 		"query-string": "^9.0.0",
 		"react": "^18",
 		"react-day-picker": "^8.10.1",

@@ -22,8 +22,6 @@ const page = async ({ searchParams }: SearchParamProps) => {
 		limit: 10,
 	});
 
-	console.log("courses", courses?.data);
-
 	return (
 		<div>
 			<Showcase />

@@ -68,8 +68,6 @@ export async function fetchAllUsers({
 
 		const userCount = await User.countDocuments(condition);
 
-		console.log("userCount", userCount);
-
 		return {
 			data: JSON.parse(JSON.stringify(users)),
 			totalPages: Math.ceil(userCount / limit),

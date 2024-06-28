@@ -9,10 +9,12 @@ const Description = ({
 	description,
 	picture,
 	name,
+	students,
 }: {
 	description: string;
 	picture: string;
 	name: string;
+	students: { user: string }[];
 }) => {
 	return (
 		<motion.div
@@ -29,6 +31,17 @@ const Description = ({
 						title="Course Description"
 						textStyles="text-left text-2xl lg:text-3xl"
 					/>
+					{students.length !== 0 && (
+						<motion.small
+							variants={textVariant(1.1)}
+							className="text-xs italic my-4 block"
+						>
+							<span className="font-bold not-italic">
+								{students.length}+
+							</span>{" "}
+							successful students have already taken this course
+						</motion.small>
+					)}
 					<motion.p
 						variants={textVariant(1.3)}
 						className="text-xs lg:text-sm mt-4 text-gray-600"

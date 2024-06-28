@@ -48,6 +48,7 @@ import {
 	createCategory,
 	getAllCategories,
 } from "@/lib/actions/category.actions";
+import CourseDropdown from "./CourseDropdown";
 
 const CourseCategory = ({
 	initialValue,
@@ -58,9 +59,9 @@ const CourseCategory = ({
 	courseId: string;
 	path: string;
 }) => {
-	console.log(initialValue);
-
 	const [isEditing, setIsEditing] = useState(false);
+
+	console.log(initialValue);
 
 	const [newCategory, setNewCategory] = useState("");
 	const [categories, setCategories] = useState<ICategory[]>([]);
@@ -72,13 +73,9 @@ const CourseCategory = ({
 		},
 	});
 
-	console.log(initialValue);
-
 	useEffect(() => {
 		const fetchAllCategories = async () => {
 			const categoryList = await getAllCategories();
-
-			console.log(categoryList);
 
 			categoryList && setCategories(categoryList as ICategory[]);
 		};
@@ -249,6 +246,12 @@ const CourseCategory = ({
 													}
 													value={field.value}
 												/> */}
+												<CourseDropdown
+													onChangeHandler={
+														field.onChange
+													}
+													value={field.value}
+												/>
 											</FormControl>
 											<FormMessage />
 										</FormItem>

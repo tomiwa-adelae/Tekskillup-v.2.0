@@ -55,64 +55,64 @@ const page = async ({ params: { id } }: SearchParamProps) => {
 	return (
 		<div>
 			<CourseHeader
-				name={course.name}
+				name={course?.name}
 				completedText={completedText}
 				isComplete={isComplete}
-				isPublished={course.isPublished}
-				path={`/my-courses/${course._id}`}
-				courseId={course._id}
+				isPublished={course?.isPublished}
+				path={`/my-courses/${course?._id}`}
+				courseId={course?._id}
 			/>
 			<BentoGrid className="mt-12">
 				<CourseName
-					initialValue={course.name}
-					courseId={course._id}
-					path={`/my-courses/${course._id}`}
+					initialValue={course?.name}
+					courseId={course?._id}
+					path={`/my-courses/${course?._id}`}
 				/>
 				<CourseDescription
-					initialValue={course.description}
-					courseId={course._id}
-					path={`/my-courses/${course._id}`}
+					initialValue={course?.description}
+					courseId={course?._id}
+					path={`/my-courses/${course?._id}`}
 				/>
 				<CourseImage
-					initialValue={course.picture}
-					name={course.name}
-					courseId={course._id}
-					path={`/my-courses/${course._id}`}
+					initialValue={course?.picture}
+					name={course?.name}
+					courseId={course?._id}
+					path={`/my-courses/${course?._id}`}
 				/>
 				<CourseLessons
-					initialLessons={course.lessons}
-					courseId={course._id}
-					path={`/my-courses/${course._id}`}
+					initialLessons={course?.lessons}
+					courseId={course?._id}
+					path={`/my-courses/${course?._id}`}
 				/>
 				<CourseCategory
 					initialValue={course?.category?.name}
-					courseId={course._id}
-					path={`/my-courses/${course._id}`}
+					courseId={course?._id}
+					path={`/my-courses/${course?._id}`}
 				/>
 				<CourseOnlinePrice
-					initialValue={course.onlinePrice}
-					courseId={course._id}
-					path={`/my-courses/${course._id}`}
+					initialValue={course?.onlinePrice}
+					courseId={course?._id}
+					path={`/my-courses/${course?._id}`}
 				/>
 				<CourseWeekendPrice
-					initialValue={course.weekendPrice}
-					courseId={course._id}
-					path={`/my-courses/${course._id}`}
+					initialValue={course?.weekendPrice}
+					courseId={course?._id}
+					path={`/my-courses/${course?._id}`}
 				/>
 				<CourseWeekendDate
-					initialValue={course.weekendDate}
-					courseId={course._id}
-					path={`/my-courses/${course._id}`}
+					initialValue={course?.weekendDate}
+					courseId={course?._id}
+					path={`/my-courses/${course?._id}`}
 				/>
 				<CourseWeekdaysPrice
-					initialValue={course.weekdaysPrice}
-					courseId={course._id}
-					path={`/my-courses/${course._id}`}
+					initialValue={course?.weekdaysPrice}
+					courseId={course?._id}
+					path={`/my-courses/${course?._id}`}
 				/>
 				<CourseWeekdaysDate
-					initialValue={course.weekdaysDate}
-					courseId={course._id}
-					path={`/my-courses/${course._id}`}
+					initialValue={course?.weekdaysDate}
+					courseId={course?._id}
+					path={`/my-courses/${course?._id}`}
 				/>
 			</BentoGrid>
 		</div>

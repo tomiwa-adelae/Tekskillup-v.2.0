@@ -20,6 +20,7 @@ type CourseProp = {
 	picture: string;
 	_id: string;
 	lessons: { content: string }[];
+	students: { user: string }[];
 };
 
 const page = async ({ params: { id } }: { params: { id: string } }) => {
@@ -36,11 +37,16 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
 				description={course.description}
 				course={course._id}
 				user={userInfo._id}
+				email={userInfo.email}
+				phoneNumber={userInfo.phoneNumber}
+				firstName={userInfo.firstName}
+				lastName={userInfo.lastName}
 			/>
 			<Description
 				description={course.description}
 				picture={course.picture}
 				name={course.name}
+				students={course.students}
 			/>
 			<CourseContents
 				lessons={course.lessons}

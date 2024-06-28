@@ -49,8 +49,6 @@ const CourseOnlinePrice = ({
 		}
 	}
 
-	console.log(initialValue);
-
 	return (
 		<div
 			className={

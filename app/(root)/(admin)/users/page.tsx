@@ -20,8 +20,6 @@ const page = async ({ searchParams }: SearchParamProps) => {
 		limit: 10,
 	});
 
-	console.log("courses", users);
-
 	return (
 		<div>
 			<SubHeader
