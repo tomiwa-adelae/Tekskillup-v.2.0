@@ -27,7 +27,7 @@ const CourseContents = ({
 	const router = useRouter();
 	const handleApply = async () => {
 		await applyForCourse({ user, course });
-		router.push(`/courses/${courseId}/success`);
+		router.push(`/courses/${course}/success`);
 	};
 
 	return (
