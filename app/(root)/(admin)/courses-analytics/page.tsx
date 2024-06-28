@@ -3,6 +3,11 @@ import SubHeader from "../_components/SubHeader";
 import Charts from "./_components/Charts";
 import { fetchAllRegisteredCourses } from "@/lib/actions/course.actions";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Course analytics | Tekskillup",
+};
+
 const page = async () => {
 	const courses = await fetchAllRegisteredCourses();
 

@@ -59,6 +59,9 @@ const config: Config = withUt({
 					DEFAULT: "hsl(var(--card))",
 					foreground: "hsl(var(--card-foreground))",
 				},
+				green: {
+					400: "#104F19",
+				},
 			},
 			borderRadius: {
 				lg: "var(--radius)",

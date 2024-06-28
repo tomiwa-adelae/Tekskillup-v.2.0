@@ -11,9 +11,7 @@ import { usePathname } from "next/navigation";
 
 import { motion } from "framer-motion";
 import { navVariants } from "@/lib/motion";
-import { SignedOut, SignedIn, UserButton, useAuth } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
-import { getUserById } from "@/lib/actions/user.actions";
+import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
 
 const Header = ({ isAdmin }: { isAdmin: boolean }) => {
 	const pathname = usePathname();
@@ -23,7 +21,7 @@ const Header = ({ isAdmin }: { isAdmin: boolean }) => {
 			variants={navVariants}
 			initial="hidden"
 			whileInView="show"
-			className="h-20 sticky top-0 left-0 bg-white z-20 flex items-center justify-center"
+			className="h-20 sticky top-0 left-0 bg-white z-2000 flex items-center justify-center"
 		>
 			<div className="container flex items-center justify-between">
 				<div className="flex items-center justify-start gap-3">

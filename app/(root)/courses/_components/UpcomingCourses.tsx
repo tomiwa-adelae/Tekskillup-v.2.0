@@ -7,8 +7,18 @@ import Image from "next/image";
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react";
 import { popularInstructors, upcomingCourses } from "@/constants";
 import { Separator } from "@/components/ui/separator";
+import { formatDate, formatToNaira } from "@/lib/utils";
 
-const UpcomingCourses = () => {
+const UpcomingCourses = ({
+	courses,
+}: {
+	courses: {
+		picture: string;
+		name: string;
+		onlinePrice: string;
+		weekendDate: string;
+	}[];
+}) => {
 	return (
 		<motion.div
 			// @ts-ignore
@@ -30,8 +40,8 @@ const UpcomingCourses = () => {
 				qui temporibus ipsam suscipit sint asperiores tenetur incidunt.
 			</motion.p>
 			<div className="flex flex-col gap-3 mt-12">
-				{upcomingCourses.map(
-					({ image, title, startDate, price }, index) => {
+				{courses.map(
+					({ picture, name, weekendDate, onlinePrice }, index) => {
 						return (
 							<motion.div
 								variants={fadeIn(
@@ -43,34 +53,34 @@ const UpcomingCourses = () => {
 								className="flex items-center justify-between gap-3 border border-gray-300 p-2 rounded-lg"
 								key={index}
 							>
-								<div className="flex items-center justify-start gap-4">
+								<div className="flex-1 flex items-center justify-start gap-4">
 									<Image
-										src={image}
-										alt={title}
+										src={picture}
+										alt={name}
 										width={1000}
 										height={1000}
 										className="aspect-video object-cover rounded-lg w-20 md:w-32"
 									/>
-									<h4 className="font-bold text-xs md:text-sm">
-										{title}
+									<h4 className="font-bold text-xs md:text-sm text-left truncate">
+										{name}
 									</h4>
 								</div>
 
-								<div className="flex flex-col items-start justify-center gap-2">
+								<div className="flex-1 flex flex-col items-start justify-center gap-2">
 									<p className="text-gray-300 text-xs">
 										Date
 									</p>
 									<p className="text-xs font-bold">
-										{startDate}
+										{formatDate(weekendDate)}
 									</p>
 								</div>
 
-								<div className="flex flex-col items-start justify-center gap-2">
+								<div className="flex-1 flex flex-col items-end justify-center gap-2">
 									<p className="text-gray-300 text-xs">
 										Price
 									</p>
 									<p className="text-xs text-green-400 font-bold">
-										#{price}
+										{formatToNaira(onlinePrice)}
 									</p>
 								</div>
 							</motion.div>

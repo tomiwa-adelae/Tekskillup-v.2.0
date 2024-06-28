@@ -4,6 +4,11 @@ import DashboardBoxes from "./_components/DashboardBoxes";
 import { auth } from "@clerk/nextjs";
 import { fetchAllCourses } from "@/lib/actions/course.actions";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Dashboard | Tekskillup",
+};
+
 const page = async () => {
 	const { userId } = auth();
 

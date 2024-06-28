@@ -32,7 +32,7 @@ const CourseCard = ({
 	return (
 		<Card className="text-center py-6 px-4 space-y-4">
 			<p className="text-sm text-green-400">{category}</p>
-			<h2 className="text-xl font-bold">{name}</h2>
+			<h2 className="text-xl font-bold line-clamp-1">{name}</h2>
 			<Image
 				src={picture}
 				alt={name}

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-export const InfiniteMovingCompanies = ({
+export const InfiniteMovingCards = ({
 	items,
 	direction = "left",
 	speed = "fast",
@@ -12,8 +12,10 @@ export const InfiniteMovingCompanies = ({
 	className,
 }: {
 	items: {
+		quote: string;
 		name: string;
-		imageURL: string;
+		title: string;
+		image: string;
 	}[];
 	direction?: "left" | "right";
 	speed?: "fast" | "normal" | "slow";
@@ -82,27 +84,53 @@ export const InfiniteMovingCompanies = ({
 		<div
 			ref={containerRef}
 			className={cn(
-				"bg-green-100 py-4 scroller relative z-20 w-full overflow-hidden  [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+				"scroller relative z-20  max-w-7xl overflow-hidden",
 				className
 			)}
 		>
 			<ul
 				ref={scrollerRef}
 				className={cn(
-					"flex min-w-full shrink-0 gap-20 py-4 w-max flex-nowrap",
+					" flex min-w-full shrink-0 gap-4 py-4 w-max flex-nowrap",
 					start && "animate-scroll ",
 					pauseOnHover && "hover:[animation-play-state:paused]"
 				)}
 			>
 				{items.map((item, idx) => (
-					<li key={idx}>
-						<Image
-							src={item.imageURL}
-							alt={item.name}
-							height={1000}
-							width={1000}
-							className="w-14"
-						/>
+					<li
+						className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-green-700 px-8 py-6 md:w-[450px]"
+						style={{
+							background:
+								"linear-gradient(180deg, var(--green-800), var(--green-900)",
+						}}
+						key={item.name}
+					>
+						<blockquote>
+							<div
+								aria-hidden="true"
+								className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
+							></div>
+							<span className=" relative z-20 text-sm leading-[1.6] text-gray-100 font-normal">
+								{item.quote}
+							</span>
+							<div className="relative z-20 mt-6 flex gap-4 items-start">
+								<Image
+									src={item.image}
+									alt={item.name}
+									width={1000}
+									height={1000}
+									className="rounded-full w-12 h-12 object-cover"
+								/>
+								<span className="flex flex-col gap-1">
+									<span className=" text-sm leading-[1.6] text-white font-normal">
+										{item.name}
+									</span>
+									<span className=" text-sm leading-[1.6] text-white font-normal">
+										{item.title}
+									</span>
+								</span>
+							</div>
+						</blockquote>
 					</li>
 				))}
 			</ul>

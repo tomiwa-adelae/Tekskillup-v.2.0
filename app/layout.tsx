@@ -20,7 +20,11 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<ClerkProvider>
+		<ClerkProvider
+			appearance={{
+				variables: { colorPrimary: "#104F19" },
+			}}
+		>
 			<html lang="en">
 				<body className={`${montserrat.className} scrollbar-thin`}>
 					{children}

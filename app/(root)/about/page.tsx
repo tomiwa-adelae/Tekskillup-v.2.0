@@ -6,6 +6,11 @@ import Achievements from "./_components/Achievements";
 import OurTeams from "./_components/OurTeams";
 import JoinNow from "../../../components/JoinNow";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "About | Tekskillup",
+};
+
 const page = () => {
 	return (
 		<div>

@@ -3,6 +3,11 @@ import SubHeader from "../_components/SubHeader";
 import Charts from "./_components/Charts";
 import { SearchParamProps } from "@/types";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "User analytics | Tekskillup",
+};
+
 const page = async ({ searchParams }: SearchParamProps) => {
 	const page = Number(searchParams?.page) || 1;
 	const searchText = (searchParams?.query as string) || "";

@@ -10,6 +10,11 @@ import UpcomingCourses from "./_components/UpcomingCourses";
 import { SearchParamProps } from "@/types";
 import { fetchPublishedCourses } from "@/lib/actions/course.actions";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Our courses | Tekskillup",
+};
+
 const page = async ({ searchParams }: SearchParamProps) => {
 	const page = Number(searchParams?.page) || 1;
 	const searchText = (searchParams?.query as string) || "";
@@ -32,7 +37,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
 				page={page}
 			/>
 			<PopularCategories />
-			<UpcomingCourses />
+			<UpcomingCourses courses={courses?.data.splice(0, 4)} />
 			<SuccessStats />
 			<PopularInstructors />
 			<FAQs />

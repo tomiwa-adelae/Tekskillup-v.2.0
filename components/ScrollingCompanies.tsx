@@ -1,3 +1,4 @@
+import { companies } from "@/constants";
 import { InfiniteMovingCompanies } from "./ui/infinite-moving-companies";
 
 export function ScrollingCompanies() {
@@ -11,42 +12,3 @@ export function ScrollingCompanies() {
 		</div>
 	);
 }
-
-const companies = [
-	{
-		name: "UBA",
-		imageURL: "/assets/images/tekskillup-logo.png",
-	},
-	{
-		name: "UBA",
-		imageURL: "/assets/images/tekskillup-logo.png",
-	},
-	{
-		name: "UBA",
-		imageURL: "/assets/images/tekskillup-logo.png",
-	},
-	{
-		name: "UBA",
-		imageURL: "/assets/images/tekskillup-logo.png",
-	},
-	{
-		name: "UBA",
-		imageURL: "/assets/images/tekskillup-logo.png",
-	},
-	{
-		name: "UBA",
-		imageURL: "/assets/images/tekskillup-logo.png",
-	},
-	{
-		name: "UBA",
-		imageURL: "/assets/images/tekskillup-logo.png",
-	},
-	{
-		name: "UBA",
-		imageURL: "/assets/images/tekskillup-logo.png",
-	},
-	{
-		name: "UBA",
-		imageURL: "/assets/images/tekskillup-logo.png",
-	},
-];

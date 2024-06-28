@@ -1,4 +1,13 @@
-import { Briefcase, Layers, UserRound } from "lucide-react";
+import {
+	BookOpen,
+	Briefcase,
+	BriefcaseBusiness,
+	Layers,
+	LoaderPinwheel,
+	PersonStanding,
+	TvMinimal,
+	UserRound,
+} from "lucide-react";
 
 export const headerLinks = [
 	{
@@ -46,22 +55,39 @@ export const whyChooseUs = [
 	{
 		title: "Expert Instruction",
 		description:
-			"Contrary to popular belief, Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, neque?",
+			"Learn from industry experts who have hands-on experience in design and development",
 		icon: Briefcase,
 	},
 
 	{
-		title: "Short Course",
+		title: "Flexible Learning Schedule",
 		description:
-			"Contrary to popular belief, Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, neque?",
-		icon: Layers,
+			"Fir your coursework around your existing commitments and obligations",
+		icon: BookOpen,
 	},
-
 	{
-		title: "Learn with Expert Degree",
+		title: "Diverse Course Offerings",
 		description:
-			"Contrary to popular belief, Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, neque?",
-		icon: UserRound,
+			"Explore a wide range of design and development courses covering various topics",
+		icon: LoaderPinwheel,
+	},
+	{
+		title: "Practical Projects and Assignments",
+		description:
+			"Develop a portfolio showcasing your skills and abilities to potnetial employers",
+		icon: TvMinimal,
+	},
+	{
+		title: "Interactive Learning Environment",
+		description:
+			"Collaborate with fellow learners, exchanging ideas and feedbac to enhance your understanding",
+		icon: PersonStanding,
+	},
+	{
+		title: "Updates Curriculum",
+		description:
+			"Access courses with up-to-date content reflecting the latest trends and industry practices",
+		icon: BriefcaseBusiness,
 	},
 ];
 
@@ -74,21 +100,21 @@ export const topCategories = [
 		bgColor: "rgba(16, 185, 129, 0.2)",
 	},
 	{
-		title: "Web Development",
-		number: 30,
+		title: "Digital Marketing",
+		number: 20,
 		icon: Briefcase,
 		color: "#c084fc",
 		bgColor: "rgba(16, 185, 129, 0.2)",
 	},
 	{
-		title: "Web Development",
+		title: "Mobile App Development",
 		number: 30,
 		icon: Briefcase,
 		color: "#f43f5e",
 		bgColor: "rgba(16, 185, 129, 0.2)",
 	},
 	{
-		title: "Web Development",
+		title: "Frontent Development",
 		number: 30,
 		icon: Briefcase,
 		color: "#7dd3fc",
@@ -137,58 +163,57 @@ export const featuredCourses = [
 
 export const faqs = [
 	{
-		question: "Can I enroll in multiple courses at once?",
-		answer: "Yes. It adheres to the WAI-ARIA design pattern.",
+		question: "What is Tekskillup",
+		answer: "Tekskillup is a gateway to mastering tech and digital skills for a dynamic and ever-evolving world. At Tekskillup, we are committed to empowering individuals with the knowledge and expertise needed to thrive in the digital age.",
 	},
 	{
 		question: "Can I enroll in multiple courses at once?",
-		answer: "Yes. It adheres to the WAI-ARIA design pattern.",
+		answer: "Absolutely! You can enroll in multiple courses simultaneously and access them at your convinence. It adheres to the WAI-ARIA design pattern.",
 	},
 	{
-		question: "Can I enroll in multiple courses at once?",
-		answer: "Yes. It adheres to the WAI-ARIA design pattern.",
+		question: "Do I get a certificate after completing a course?",
+		answer: "Yes, upon successfully completing a course, you will receive a certificate of completion that you can share with employers or include in your professional portfolio.",
 	},
 	{
-		question: "Can I enroll in multiple courses at once?",
-		answer: "Yes. It adheres to the WAI-ARIA design pattern.",
+		question: "How long do I have access to a course?",
+		answer: "Once you purchase a course, you have lifetime access to it. This means you can start and finish the course at your own pace, and revisit the material anytime in the future.",
+	},
+	{
+		question: "How can I contact customer support?",
+		answer: "You can contact Tekskillup's customer support through the Help Center on the website. There you can find contact page, submit a support request for assistance.",
 	},
 ];
 
 export const testimonials = [
 	{
+		quote: "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair.",
+		name: "Charles Dickens",
+		title: "A Tale of Two Cities",
 		image: "/assets/images/user.jpg",
-		testimony:
-			"Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia tenetur facere optio quam cum nam quis. Quae rerum illo placeat distinctio assumenda ab aliquam, exercitationem ratione. Corporis doloribus enim omnis?ern.",
-		name: "Samson Smith",
-		title: "Senior dev",
 	},
 	{
+		quote: "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take Arms against a Sea of troubles, And by opposing end them: to die, to sleep.",
+		name: "William Shakespeare",
+		title: "Hamlet",
 		image: "/assets/images/user.jpg",
-		testimony:
-			"Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia tenetur facere optio quam cum nam quis. Quae rerum illo placeat distinctio assumenda ab aliquam, exercitationem ratione. Corporis doloribus enim omnis?ern.",
-		name: "Samson Smith",
-		title: "Senior dev",
 	},
 	{
+		quote: "All that we see or seem is but a dream within a dream.",
+		name: "Edgar Allan Poe",
+		title: "A Dream Within a Dream",
 		image: "/assets/images/user.jpg",
-		testimony:
-			"Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia tenetur facere optio quam cum nam quis. Quae rerum illo placeat distinctio assumenda ab aliquam, exercitationem ratione. Corporis doloribus enim omnis?ern.",
-		name: "Samson Smith",
-		title: "Senior dev",
 	},
 	{
+		quote: "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
+		name: "Jane Austen",
+		title: "Pride and Prejudice",
 		image: "/assets/images/user.jpg",
-		testimony:
-			"Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia tenetur facere optio quam cum nam quis. Quae rerum illo placeat distinctio assumenda ab aliquam, exercitationem ratione. Corporis doloribus enim omnis?ern.",
-		name: "Samson Smith",
-		title: "Senior dev",
 	},
 	{
+		quote: "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
+		name: "Herman Melville",
+		title: "Moby-Dick",
 		image: "/assets/images/user.jpg",
-		testimony:
-			"Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia tenetur facere optio quam cum nam quis. Quae rerum illo placeat distinctio assumenda ab aliquam, exercitationem ratione. Corporis doloribus enim omnis?ern.",
-		name: "Samson Smith",
-		title: "Senior dev",
 	},
 ];
 
@@ -485,27 +510,27 @@ export const popularCategories = [
 
 export const successStats = [
 	{
-		value: "15k+",
+		value: "15",
 		title: "Students",
 	},
 	{
-		value: "15k+",
+		value: "15",
 		title: "Students",
 	},
 	{
-		value: "15k+",
+		value: "15",
 		title: "Students",
 	},
 	{
-		value: "15k+",
+		value: "15",
 		title: "Students",
 	},
 	{
-		value: "15k+",
+		value: "15",
 		title: "Students",
 	},
 	{
-		value: "15k+",
+		value: "15",
 		title: "Students",
 	},
 ];
@@ -617,5 +642,32 @@ export const adminSideBarLinks = [
 	{
 		route: "/courses-analytics",
 		label: "Courses analytics",
+	},
+];
+
+export const companies = [
+	{
+		name: "Amazon",
+		imageURL: "/assets/icons/amazon.svg",
+	},
+	{
+		name: "Adobe",
+		imageURL: "/assets/icons/adobe.svg",
+	},
+	{
+		name: "Spotify",
+		imageURL: "/assets/icons/spotify.svg",
+	},
+	{
+		name: "Netflix",
+		imageURL: "/assets/icons/netflix.svg",
+	},
+	{
+		name: "Apple",
+		imageURL: "/assets/icons/apple.svg",
+	},
+	{
+		name: "Google",
+		imageURL: "/assets/icons/google.svg",
 	},
 ];

@@ -13,6 +13,11 @@ import { getCourseById } from "@/lib/actions/course.actions";
 import CourseLessons from "./_components/CourseLessons";
 import CourseCategory from "./_components/CourseCategory";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "My course | Tekskillup",
+};
+
 interface CourseProp {
 	_id: string;
 	name: string;

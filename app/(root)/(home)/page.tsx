@@ -6,12 +6,12 @@ import Benefits from "./_components/Benefits";
 import WhyChooseUs from "./_components/WhyChooseUs";
 import TopCategories from "./_components/TopCategories";
 import FeaturedCourses from "./_components/FeaturedCourses";
-import Testimonials from "./_components/Testimonials";
 import SuccessStats from "@/components/SuccessStats";
 import FAQs from "@/components/FAQs";
 import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.actions";
 import { fetchPublishedCourses } from "@/lib/actions/course.actions";
+import { Testimonials } from "./_components/Testimonials";
 
 export default async function Home() {
 	const { userId } = auth();
@@ -37,7 +37,6 @@ export default async function Home() {
 			<WhyChooseUs />
 			<TopCategories />
 			<FeaturedCourses courses={courses?.data} />
-			<ScrollingCompanies />
 			<Testimonials />
 			<FAQs />
 		</>

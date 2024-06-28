@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { fadeIn, staggerContainer, textVariant } from "@/lib/motion";
 import { TypingSubText } from "@/components/CustomTexts";
 import { successStats } from "@/constants";
+import CountUp from "react-countup";
 
 const SuccessStats = () => {
 	return (
@@ -22,7 +23,11 @@ const SuccessStats = () => {
 					className="flex flex-col gap-1 items-center justify-center"
 				>
 					<h2 className="text-primary font-bold text-3xl md:text-4xl lg:text-5xl">
-						{value}
+						<CountUp
+							end={Number(value)}
+							suffix="k+"
+							duration={2.75}
+						/>
 					</h2>
 					<p className="text-xs font-medium md:text-sm">{title}</p>
 				</motion.div>

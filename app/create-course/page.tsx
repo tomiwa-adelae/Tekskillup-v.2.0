@@ -4,6 +4,11 @@ import { Spotlight } from "@/components/ui/spotlight";
 import Box from "./_components/Box";
 import { auth } from "@clerk/nextjs";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "New course | Tekskillup",
+};
+
 const page = async () => {
 	const { userId } = auth();
 

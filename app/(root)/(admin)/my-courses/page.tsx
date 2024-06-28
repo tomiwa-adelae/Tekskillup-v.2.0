@@ -5,6 +5,11 @@ import SearchBar from "@/components/SearchBar";
 import { SearchParamProps } from "@/types";
 import Pagination from "@/components/Pagination";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "My courses | Tekskillup",
+};
+
 const page = async ({ searchParams }: SearchParamProps) => {
 	const page = Number(searchParams?.page) || 1;
 	const searchText = (searchParams?.query as string) || "";

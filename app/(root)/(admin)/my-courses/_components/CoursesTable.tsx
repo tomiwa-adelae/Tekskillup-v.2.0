@@ -146,6 +146,9 @@ export function CoursesTable({ courses }: { courses: any }) {
 						)}
 					</TableBody>
 				</Table>
+				{courses?.length === 0 && (
+					<p className="text-sm italic">No courses</p>
+				)}
 			</motion.div>
 		</motion.div>
 	);

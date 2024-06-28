@@ -8,6 +8,11 @@ import { getCourseById } from "@/lib/actions/course.actions";
 import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.actions";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Course | Tekskillup",
+};
+
 type CourseProp = {
 	name: string;
 	description: string;

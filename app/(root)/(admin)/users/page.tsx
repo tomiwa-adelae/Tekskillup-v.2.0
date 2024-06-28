@@ -6,6 +6,11 @@ import { auth } from "@clerk/nextjs";
 import { SearchParamProps } from "@/types";
 import Pagination from "@/components/Pagination";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Users | Tekskillup",
+};
+
 const page = async ({ searchParams }: SearchParamProps) => {
 	const { userId } = auth();
 

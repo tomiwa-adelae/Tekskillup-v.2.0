@@ -30,8 +30,8 @@ const WhyChooseUs = () => {
 				tempore ipsa reprehenderit obcaecati?
 			</motion.p>
 
-			<div className="flex flex-col md:flex-row gap-4 mt-12">
-				{whyChooseUs.map((why, index) => {
+			<div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-12">
+				{whyChooseUs.map((why, index: number) => {
 					const IconComponent = why.icon;
 					return (
 						<motion.div
@@ -41,7 +41,7 @@ const WhyChooseUs = () => {
 								index * 0.5,
 								0.75
 							)}
-							className="flex-1 flex flex-col gap-3"
+							className="flex-1 flex flex-col gap-3 bg-slate-50 p-6 rounded-lg"
 							key={index}
 						>
 							<div className="p-2 rounded-full w-fit bg-green-100">
