@@ -43,7 +43,7 @@ const FAQs = () => {
 								className="bg-white px-4 py-2 rounded-lg"
 								value="item-1"
 							>
-								<AccordionTrigger className="font-bold">
+								<AccordionTrigger className="font-bold text-left">
 									{faq.question}
 								</AccordionTrigger>
 								<AccordionContent>
