@@ -9,6 +9,7 @@ import { Spotlight } from "@/components/ui/spotlight";
 
 export default function SparklesPreview() {
 	return (
+		<>
 			<motion.div
 				// @ts-ignore
 				variants={staggerContainer}
@@ -48,5 +49,6 @@ export default function SparklesPreview() {
 				className="-top-5 left-0 md:left-30 md:-top-10"
 				fill="green"
 			/>
+		</>
 	);
 }
