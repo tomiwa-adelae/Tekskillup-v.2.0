@@ -58,13 +58,13 @@
 	}
 }
 
-/* body {
+body {
 	overflow-x: hidden !important;
 }
 
 html {
 	overflow-x: hidden !important;
-} */
+}
 
 /* dark mode looking scrollbar */
 ::-webkit-scrollbar {

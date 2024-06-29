@@ -83,95 +83,99 @@ const CourseDropdown = ({ value, onChangeHandler }: CourseDropdownProps) => {
 	}
 
 	return (
-		<Select onValueChange={onChangeHandler} defaultValue={value}>
-			<SelectTrigger className="select-field">
-				<SelectValue placeholder="Select a category" />
-			</SelectTrigger>
-			<SelectContent>
-				{categories.length > 0 &&
-					categories.map((category) => (
-						<SelectItem
-							key={category._id}
-							value={category._id}
-							className="select-item p-regular-14"
-						>
-							{category.name}
-						</SelectItem>
-					))}
-				<Form {...form}>
-					<form
-						onSubmit={form.handleSubmit(onSubmit)}
-						className="mt-4"
-					>
-						<FormField
-							control={form.control}
-							name="name"
-							render={({ field }) => (
-								<FormItem>
-									<FormControl>
-										<Input
-											placeholder="Category name..."
-											{...field}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<Button
-							disabled={form.formState.isSubmitting}
-							type="submit"
-							className="mt-2"
-						>
-							{form.formState.isSubmitting ? "Adding..." : "Add"}
-						</Button>
-					</form>
-				</Form>
-				{/* <Sheet>
-					<SheetTrigger asChild>
-						<Button className="w-full" variant="outline">
-							Add new category
-						</Button>
-					</SheetTrigger>
-					<SheetContent side={"bottom"}>
-						<SheetHeader>
-							<SheetTitle>New Category</SheetTitle>
-						</SheetHeader>
-						<Form {...form}>
-							<form
-								onSubmit={form.handleSubmit(onSubmit)}
-								className="mt-4"
+		<>
+			<Select onValueChange={onChangeHandler} defaultValue={value}>
+				<SelectTrigger className="select-field">
+					<SelectValue placeholder="Select a category" />
+				</SelectTrigger>
+				<SelectContent>
+					{categories.length > 0 &&
+						categories.map((category) => (
+							<SelectItem
+								key={category._id}
+								value={category._id}
+								className="select-item p-regular-14"
 							>
-								<FormField
-									control={form.control}
-									name="name"
-									render={({ field }) => (
-										<FormItem>
-											<FormControl>
-												<Input
-													placeholder="Category name..."
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<Button
-									disabled={form.formState.isSubmitting}
-									type="submit"
-									className="mt-6"
-								>
-									{form.formState.isSubmitting
-										? "Adding..."
-										: "Add"}
-								</Button>
-							</form>
-						</Form>
-					</SheetContent>
-				</Sheet> */}
-			</SelectContent>
-		</Select>
+								{category.name}
+							</SelectItem>
+						))}
+					<Form {...form}>
+						<form
+							onSubmit={form.handleSubmit(onSubmit)}
+							className="mt-4"
+						>
+							<FormField
+								control={form.control}
+								name="name"
+								render={({ field }) => (
+									<FormItem>
+										<FormControl>
+											<Input
+												placeholder="Category name..."
+												{...field}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<Button
+								disabled={form.formState.isSubmitting}
+								type="submit"
+								className="mt-2"
+							>
+								{form.formState.isSubmitting
+									? "Adding..."
+									: "Add"}
+							</Button>
+						</form>
+					</Form>
+				</SelectContent>
+			</Select>
+			<Sheet>
+				<SheetTrigger asChild>
+					<Button className="w-full" variant="outline">
+						Add new category
+					</Button>
+				</SheetTrigger>
+				<SheetContent side={"bottom"}>
+					<SheetHeader>
+						<SheetTitle>New Category</SheetTitle>
+					</SheetHeader>
+					<Form {...form}>
+						<form
+							onSubmit={form.handleSubmit(onSubmit)}
+							className="mt-4"
+						>
+							<FormField
+								control={form.control}
+								name="name"
+								render={({ field }) => (
+									<FormItem>
+										<FormControl>
+											<Input
+												placeholder="Category name..."
+												{...field}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<Button
+								disabled={form.formState.isSubmitting}
+								type="submit"
+								className="mt-6"
+							>
+								{form.formState.isSubmitting
+									? "Adding..."
+									: "Add"}
+							</Button>
+						</form>
+					</Form>
+				</SheetContent>
+			</Sheet>
+		</>
 	);
 };
 
