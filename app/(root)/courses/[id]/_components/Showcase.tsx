@@ -56,7 +56,7 @@ const Showcase = ({
 			viewport={{ once: false, amount: 0.25 }}
 			className="min-h-[70vh] container relative flex items-start justify-center flex-col py-12 bg-green-400 bg-no-repeat bg-scroll bg-center bg-cover text-white"
 		>
-			<Spotlight
+			{/* <Spotlight
 				className="-top-40 left-0 md:left-60 md:-top-20"
 				fill="white"
 			/>
@@ -70,7 +70,7 @@ const Showcase = ({
 					className="w-full h-full"
 					particleColor="#FFFFFF"
 				/>
-			</div>
+			</div> */}
 			<motion.h1
 				variants={textVariant(1.1)}
 				className="text-3xl leading-relaxed md:text-4xl lg:text-5xl md:leading-snug lg:leading-snug font-bold"

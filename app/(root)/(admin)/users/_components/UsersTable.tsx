@@ -109,7 +109,9 @@ export function UsersTable({ users }: { users: any }) {
 					</TableBody>
 				</Table>
 				{users?.length === 0 && (
-					<p className="text-sm italic">No courses</p>
+					<p className="text-sm italic text-center mt-8">
+						No courses
+					</p>
 				)}
 			</motion.div>
 		</motion.div>

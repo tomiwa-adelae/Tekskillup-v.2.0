@@ -4,7 +4,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<div className="flex items-center justify-center min-h-screen w-full bg-primary-50 bg-dotted-pattern bg-cover bg-fixed bg-center">
 			<div className="w-full absolute inset-0 h-screen">
-				<SparklesCore
+				{/* <SparklesCore
 					id="tsparticlesfullpage"
 					background="transparent"
 					minSize={0.6}
@@ -12,7 +12,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 					particleDensity={100}
 					className="w-full h-full"
 					particleColor="#104F19"
-				/>
+				/> */}
 			</div>
 			{children}
 		</div>

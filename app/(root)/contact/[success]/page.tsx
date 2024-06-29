@@ -34,7 +34,7 @@ export default function SparklesPreview() {
 				</motion.div>
 			</motion.div>
 			<div className="w-full absolute inset-0 h-screen">
-				<SparklesCore
+				{/* <SparklesCore
 					id="tsparticlesfullpage"
 					background="transparent"
 					minSize={0.6}
@@ -42,7 +42,7 @@ export default function SparklesPreview() {
 					particleDensity={100}
 					className="w-full h-full"
 					particleColor="#104F19"
-				/>
+				/> */}
 			</div>
 
 			<Spotlight

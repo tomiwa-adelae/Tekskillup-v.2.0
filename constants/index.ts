@@ -2,10 +2,13 @@ import {
 	BookOpen,
 	Briefcase,
 	BriefcaseBusiness,
+	Facebook,
+	Instagram,
 	Layers,
 	LoaderPinwheel,
 	PersonStanding,
 	TvMinimal,
+	Twitter,
 	UserRound,
 } from "lucide-react";
 
@@ -219,22 +222,22 @@ export const testimonials = [
 
 export const socials = [
 	{
-		link: "facebook.com",
-		icon: Briefcase,
-		name: "Facebook",
-		color: "#f43f5e",
-	},
-	{
-		link: "facebook.com",
-		icon: Briefcase,
-		name: "Facebook",
-		color: "#7dd3fc",
-	},
-	{
 		link: "https://facebook.com",
-		icon: Briefcase,
+		icon: Facebook,
 		name: "Facebook",
-		color: "#c084fc",
+		color: "#4267b2",
+	},
+	{
+		link: "https://twitter.com",
+		icon: Twitter,
+		name: "Twitter",
+		color: "#1e9beb",
+	},
+	{
+		link: "https://instagram.com",
+		icon: Instagram,
+		name: "Instagram",
+		color: "#bf2e8e",
 	},
 ];
 

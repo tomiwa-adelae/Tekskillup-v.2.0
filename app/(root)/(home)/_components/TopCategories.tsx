@@ -18,7 +18,7 @@ const TopCategories = () => {
 			className="container py-12"
 		>
 			<TypingSubText
-				title="Top Categories?"
+				title="Top Categories"
 				textStyles="text-center text-2xl lg:text-3xl"
 			/>
 			<motion.p
@@ -28,7 +28,7 @@ const TopCategories = () => {
 				24,000+ unique online courses list design
 			</motion.p>
 
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
 				{topCategories.map(
 					({ color, bgColor, title, number, icon }, index) => {
 						const IconComponent = icon;

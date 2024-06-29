@@ -50,10 +50,10 @@ const UpcomingCourses = ({
 									index * 0.5,
 									0.75
 								)}
-								className="flex items-center justify-between gap-3 border border-gray-300 p-2 rounded-lg"
+								className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 border border-gray-300 p-2 rounded-lg"
 								key={index}
 							>
-								<div className="flex-1 flex items-center justify-start gap-4">
+								<div className="flex items-center justify-start gap-4">
 									<Image
 										src={picture}
 										alt={name}
@@ -66,7 +66,7 @@ const UpcomingCourses = ({
 									</h4>
 								</div>
 
-								<div className="flex-1 flex flex-col items-start justify-center gap-2">
+								<div className="flex flex-col items-start justify-center gap-2">
 									<p className="text-gray-300 text-xs">
 										Date
 									</p>
@@ -75,7 +75,7 @@ const UpcomingCourses = ({
 									</p>
 								</div>
 
-								<div className="flex-1 flex flex-col items-end justify-center gap-2">
+								<div className="flex flex-col items-end justify-center gap-2">
 									<p className="text-gray-300 text-xs">
 										Price
 									</p>

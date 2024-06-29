@@ -33,7 +33,7 @@ export default function SparklesPreview() {
 					</Button>
 				</motion.div>
 			</motion.div>
-			<div className="w-full absolute inset-0 h-screen">
+			{/* <div className="w-full absolute inset-0 h-screen">
 				<SparklesCore
 					id="tsparticlesfullpage"
 					background="transparent"
@@ -48,7 +48,7 @@ export default function SparklesPreview() {
 			<Spotlight
 				className="-top-5 left-0 md:left-30 md:-top-10"
 				fill="green"
-			/>
+			/> */}
 		</>
 	);
 }

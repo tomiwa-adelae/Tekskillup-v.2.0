@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	Select,
 	SelectContent,
@@ -6,40 +8,51 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { ICategory } from "@/lib/database/models/category.model";
-import { startTransition, useEffect, useState } from "react";
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { useEffect, useState } from "react";
 import {
 	createCategory,
 	getAllCategories,
 } from "@/lib/actions/category.actions";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+	Sheet,
+	SheetContent,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@/components/ui/sheet";
+
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormMessage,
+} from "@/components/ui/form";
+import { useToast } from "@/components/ui/use-toast";
 
 type CourseDropdownProps = {
 	value?: string;
 	onChangeHandler?: () => void;
 };
 
-const CourseDropdown = ({ value, onChangeHandler }: CourseDropdownProps) => {
-	const [categories, setCategories] = useState<ICategory[]>([]);
-	const [newCategory, setNewCategory] = useState("");
+const FormSchema = z.object({
+	name: z.string().min(2, {
+		message: "Name must be at least 2 characters.",
+	}),
+});
 
-	const handleAddCategory = () => {
-		createCategory({
-			name: newCategory.trim(),
-		}).then((category) => {
-			setCategories((prevState) => [...prevState, category]);
-		});
-	};
+const CourseDropdown = ({ value, onChangeHandler }: CourseDropdownProps) => {
+	const { toast } = useToast();
+
+	const [categories, setCategories] = useState<ICategory[]>([]);
 
 	useEffect(() => {
 		const getCategories = async () => {
@@ -50,6 +63,24 @@ const CourseDropdown = ({ value, onChangeHandler }: CourseDropdownProps) => {
 
 		getCategories();
 	}, []);
+
+	const form = useForm<z.infer<typeof FormSchema>>({
+		resolver: zodResolver(FormSchema),
+		defaultValues: {
+			name: "",
+		},
+	});
+
+	function onSubmit(data: z.infer<typeof FormSchema>) {
+		createCategory({
+			name: data.name,
+		}).then((category) => {
+			setCategories((prevState) => [...prevState, category]);
+			toast({
+				title: "Category created successfully!",
+			});
+		});
+	}
 
 	return (
 		<Select onValueChange={onChangeHandler} defaultValue={value}>
@@ -67,37 +98,49 @@ const CourseDropdown = ({ value, onChangeHandler }: CourseDropdownProps) => {
 							{category.name}
 						</SelectItem>
 					))}
-
-				<AlertDialog>
-					<AlertDialogTrigger className="p-medium-14 flex w-full rounded-sm py-3 pl-8 text-primary-500 hover:bg-primary-50 focus:text-primary-500">
-						Add new category
-					</AlertDialogTrigger>
-					<AlertDialogContent className="bg-white">
-						<AlertDialogHeader>
-							<AlertDialogTitle>New Category</AlertDialogTitle>
-							<AlertDialogDescription>
-								<Input
-									type="text"
-									placeholder="Category name"
-									className="input-field mt-3"
-									onChange={(e) =>
-										setNewCategory(e.target.value)
-									}
-								/>
-							</AlertDialogDescription>
-						</AlertDialogHeader>
-						<AlertDialogFooter>
-							<AlertDialogCancel>Cancel</AlertDialogCancel>
-							<AlertDialogAction
-								onClick={() =>
-									startTransition(handleAddCategory)
-								}
+				<Sheet>
+					<SheetTrigger asChild>
+						<Button className="w-full" variant="outline">
+							Add new category
+						</Button>
+					</SheetTrigger>
+					<SheetContent side={"bottom"}>
+						<SheetHeader>
+							<SheetTitle>New Category</SheetTitle>
+						</SheetHeader>
+						<Form {...form}>
+							<form
+								onSubmit={form.handleSubmit(onSubmit)}
+								className="mt-4"
 							>
-								Add
-							</AlertDialogAction>
-						</AlertDialogFooter>
-					</AlertDialogContent>
-				</AlertDialog>
+								<FormField
+									control={form.control}
+									name="name"
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<Input
+													placeholder="Category name..."
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<Button
+									disabled={form.formState.isSubmitting}
+									type="submit"
+									className="mt-6"
+								>
+									{form.formState.isSubmitting
+										? "Adding..."
+										: "Add"}
+								</Button>
+							</form>
+						</Form>
+					</SheetContent>
+				</Sheet>
 			</SelectContent>
 		</Select>
 	);
