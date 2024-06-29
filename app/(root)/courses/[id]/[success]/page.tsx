@@ -16,7 +16,7 @@ export default function SparklesPreview() {
 				initial="hidden"
 				whileInView="show"
 				viewport={{ once: false, amount: 0.25 }}
-				className="space-y-4 min-h-[70vh] text-center container flex items-center relative z-20 justify-center flex-col"
+				className="space-y-4 min-h-[70vh] text-center container flex items-center relative z-20 justify-center flex-col dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2]"
 			>
 				<TypingSubText
 					title="Success"
@@ -43,12 +43,12 @@ export default function SparklesPreview() {
 					className="w-full h-full"
 					particleColor="#104F19"
 				/>
-			</div>
+			</div> */}
 
 			<Spotlight
 				className="-top-5 left-0 md:left-30 md:-top-10"
 				fill="green"
-			/> */}
+			/>
 		</>
 	);
 }

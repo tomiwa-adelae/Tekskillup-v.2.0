@@ -95,7 +95,7 @@ const Charts = ({
 							strokeWidth={2}
 						/>
 					</LineChart> */}
-					{/* <BarChart
+					<BarChart
 						data={chartData}
 						margin={{
 							top: 20,
@@ -120,8 +120,8 @@ const Charts = ({
 							fill="#104F19"
 							radius={[4, 4, 0, 0]}
 						/>
-					</BarChart> */}
-					<AreaChart
+					</BarChart>
+					{/* <AreaChart
 						width={500}
 						height={400}
 						data={chartData}
@@ -142,7 +142,7 @@ const Charts = ({
 							stroke="#104F19"
 							fill="#104F19"
 						/>
-					</AreaChart>
+					</AreaChart> */}
 				</ResponsiveContainer>
 			</div>
 		</div>

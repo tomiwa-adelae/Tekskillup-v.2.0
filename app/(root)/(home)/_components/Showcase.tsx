@@ -19,7 +19,7 @@ const Showcase = () => {
 			initial="hidden"
 			whileInView="show"
 			viewport={{ once: false, amount: 0.25 }}
-			className="flex py-12 items-center justify-center md:justify-between text-center md:text-left flex-col md:flex-row relative gap-4 min-h-[85vh] container"
+			className="flex py-12 items-center justify-center md:justify-between text-center md:text-left flex-col md:flex-row relative gap-4 min-h-[85vh] container dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2]"
 		>
 			{/* <div className="w-full absolute inset-0 h-screen">
 				<SparklesCore
@@ -31,11 +31,11 @@ const Showcase = () => {
 					className="w-full h-full"
 					particleColor="#104F19"
 				/>
-			</div>
+			</div> */}
 			<Spotlight
 				className="-top-5 left-0 md:left-30 md:-top-10"
 				fill="green"
-			/> */}
+			/>
 			<div className="flex-1">
 				<motion.h1
 					variants={textVariant(1.1)}
