@@ -53,13 +53,13 @@ const UpcomingCourses = ({
 								className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 border border-gray-300 p-2 rounded-lg"
 								key={index}
 							>
-								<div className="flex items-center justify-start gap-4">
+								<div className="flex flex-col md:flex-row items-center justify-start gap-4">
 									<Image
 										src={picture}
 										alt={name}
 										width={1000}
 										height={1000}
-										className="aspect-video object-cover rounded-lg w-20 md:w-32"
+										className="aspect-video object-cover rounded-lg md:w-20 lg:w-32"
 									/>
 									<h4 className="font-bold text-xs md:text-sm text-left truncate">
 										{name}
@@ -75,7 +75,7 @@ const UpcomingCourses = ({
 									</p>
 								</div>
 
-								<div className="flex flex-col items-end justify-center gap-2">
+								<div className="flex flex-col items-start md:items-end justify-center gap-2">
 									<p className="text-gray-300 text-xs">
 										Price
 									</p>
