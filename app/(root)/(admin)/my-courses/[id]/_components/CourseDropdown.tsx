@@ -98,7 +98,36 @@ const CourseDropdown = ({ value, onChangeHandler }: CourseDropdownProps) => {
 							{category.name}
 						</SelectItem>
 					))}
-				<Sheet>
+				<Form {...form}>
+					<form
+						onSubmit={form.handleSubmit(onSubmit)}
+						className="mt-4"
+					>
+						<FormField
+							control={form.control}
+							name="name"
+							render={({ field }) => (
+								<FormItem>
+									<FormControl>
+										<Input
+											placeholder="Category name..."
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<Button
+							disabled={form.formState.isSubmitting}
+							type="submit"
+							className="mt-2"
+						>
+							{form.formState.isSubmitting ? "Adding..." : "Add"}
+						</Button>
+					</form>
+				</Form>
+				{/* <Sheet>
 					<SheetTrigger asChild>
 						<Button className="w-full" variant="outline">
 							Add new category
@@ -140,7 +169,7 @@ const CourseDropdown = ({ value, onChangeHandler }: CourseDropdownProps) => {
 							</form>
 						</Form>
 					</SheetContent>
-				</Sheet>
+				</Sheet> */}
 			</SelectContent>
 		</Select>
 	);
